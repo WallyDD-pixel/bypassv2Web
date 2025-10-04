@@ -65,6 +65,13 @@ export default async function AdminDashboard() {
   <p className="text-slate-600 dark:text-slate-300">Bienvenue {name || prettyEmail(email)}</p>
       </div>
 
+      {/* Navigation rapide */}
+      <section className="mb-6">
+        <div className="flex gap-3 flex-wrap">
+          <Link href="/admin/users" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Utilisateurs</Link>
+        </div>
+      </section>
+
       {/* KPIs */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
         {[
