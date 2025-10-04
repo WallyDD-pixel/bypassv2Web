@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { useRealtime } from "@/lib/useRealtime";
 
@@ -33,6 +33,7 @@ export default function InAppNotifications() {
   const audioReadyRef = useRef<boolean>(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated } = useAuth();
 
   const dismiss = useCallback((id: string) => {
@@ -108,6 +109,8 @@ export default function InAppNotifications() {
   useRealtime({
     onMessageCreated: (p) => {
       if (!isAuthenticated) return;
+      // Ne pas afficher de toast si déjà sur la page messages (liste ou conversation)
+      if (pathname && pathname.startsWith("/messages")) return;
       const sender = String(p.senderEmail || "").toLowerCase();
       const me = String(user?.email || "").toLowerCase();
       if (sender && me && sender === me) return; // ne pas notifier pour ses propres messages
