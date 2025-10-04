@@ -18,22 +18,46 @@ export default function LoginPage() {
     if (!loading && isAuthenticated) router.replace("/");
   }, [loading, isAuthenticated, router]);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     if (!email) return setError("Email requis");
     // Démo: on accepte n'importe quel mot de passe
     const emailLower = email.toLowerCase();
-    // Si un profil existe déjà pour cet email (avec genre), restaurer et connecter directement
-  try {
+    // 1) Vérifier côté serveur (Prisma) si un profil existe et possède un genre
+    try {
+      const res = await fetch(`/api/user?email=${encodeURIComponent(emailLower)}`, { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        const serverUser = data?.user;
+        if (serverUser?.gender) {
+          const normalized = {
+            name: serverUser.name,
+            email: serverUser.email,
+            avatarUrl: serverUser.avatarUrl,
+            gender: serverUser.gender as "male" | "female",
+            balanceCents: 0,
+            pendingBalanceCents: 0,
+          };
+          setUser(normalized);
+          try {
+            localStorage.setItem(`auth:users:${emailLower}`, JSON.stringify(normalized));
+          } catch {}
+          login();
+          router.replace("/?logged=1");
+          return;
+        }
+      }
+    } catch {}
+    // 2) Sinon, vérifier le cache local
+    try {
       const raw = localStorage.getItem(`auth:users:${emailLower}`);
       if (raw) {
         const profile = JSON.parse(raw);
         if (profile?.gender) {
           setUser(profile);
-      // marquer comme connecté (login ne remplace pas auth:user si déjà présent)
-      login();
-      router.replace("/?logged=1");
+          login();
+          router.replace("/?logged=1");
           return;
         }
       }
@@ -44,10 +68,36 @@ export default function LoginPage() {
     router.replace("/onboarding");
   };
 
-  const signWith = (provider: "google" | "apple") => {
+  const signWith = async (provider: "google" | "apple") => {
     const name = provider === "google" ? "Google User" : "Apple User";
     const email = provider === "google" ? "google.user@example.com" : "apple.user@example.com";
     const emailLower = email.toLowerCase();
+    // 1) Vérifier côté serveur
+    try {
+      const res = await fetch(`/api/user?email=${encodeURIComponent(emailLower)}`, { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        const serverUser = data?.user;
+        if (serverUser?.gender) {
+          const normalized = {
+            name: serverUser.name,
+            email: serverUser.email,
+            avatarUrl: serverUser.avatarUrl,
+            gender: serverUser.gender as "male" | "female",
+            balanceCents: 0,
+            pendingBalanceCents: 0,
+          };
+          setUser(normalized);
+          try {
+            localStorage.setItem(`auth:users:${emailLower}`, JSON.stringify(normalized));
+          } catch {}
+          login();
+          router.replace("/?logged=1");
+          return;
+        }
+      }
+    } catch {}
+    // 2) Fallback: cache local
     try {
       const raw = localStorage.getItem(`auth:users:${emailLower}`);
       if (raw) {

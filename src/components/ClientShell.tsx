@@ -35,50 +35,58 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     }
   }, [isAuthenticated]);
 
-  // Guard: if logged in but missing gender or avatar, force onboarding
+  // Guard: if logged in but missing gender or avatar, try hydrate from cache/DB, else force onboarding
   useEffect(() => {
     if (isAuthPage) return;
     let cancelled = false;
     async function checkAndHydrateUser() {
       if (isAuthenticated && (!user?.gender || !user?.avatarUrl)) {
-        // 1. Vérifier localStorage (profil archivé)
+        // 1) Cache local par email
         try {
           const emailLower = String(user?.email || "").toLowerCase();
           if (emailLower) {
             const raw = localStorage.getItem(`auth:users:${emailLower}`);
             if (raw) {
-              const profile = JSON.parse(raw);
-              if (profile?.gender && profile?.avatarUrl) {
-                localStorage.setItem("auth:user", JSON.stringify(profile));
-                return; // laisser la navigation en place
+              const cached = JSON.parse(raw);
+              if (cached?.gender && cached?.avatarUrl) {
+                localStorage.setItem("auth:user", JSON.stringify(cached));
+                return;
               }
             }
           }
         } catch {}
-        // 2. Vérifier côté DB via API
+        // 2) DB via API
         try {
           const email = user?.email;
           if (email) {
-            const res = await fetch(`/api/user?email=${encodeURIComponent(email)}`);
+            const res = await fetch(`/api/user?email=${encodeURIComponent(email)}`, { cache: "no-store" });
             if (res.ok) {
-              const dbUser = await res.json();
+              const data = await res.json();
+              const dbUser = data?.user;
               if (dbUser?.gender && dbUser?.avatarUrl) {
-                // Hydrater localStorage et état utilisateur
-                localStorage.setItem("auth:user", JSON.stringify(dbUser));
-                localStorage.setItem(`auth:users:${String(dbUser.email).toLowerCase()}`, JSON.stringify(dbUser));
-                // Optionnel: forcer un reload pour hydrater le contexte
+                const normalized = {
+                  name: dbUser.name,
+                  email: dbUser.email,
+                  avatarUrl: dbUser.avatarUrl,
+                  gender: dbUser.gender,
+                  balanceCents: 0,
+                  pendingBalanceCents: 0,
+                };
+                localStorage.setItem("auth:user", JSON.stringify(normalized));
+                localStorage.setItem(`auth:users:${String(dbUser.email).toLowerCase()}`, JSON.stringify(normalized));
                 window.location.reload();
                 return;
               }
             }
           }
         } catch {}
-        // Sinon, forcer onboarding
         if (!cancelled) router.replace("/onboarding");
       }
     }
     checkAndHydrateUser();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [isAuthenticated, user?.gender, user?.avatarUrl, user?.email, router, isAuthPage]);
 
   return (
