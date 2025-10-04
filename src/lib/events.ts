@@ -23,6 +23,10 @@ export type JoinRequestEvent = {
   createdAt: string;
   scannedAt?: string | null;
   payoutReleased?: boolean | null;
+  // Enrichissements optionnels pour contexte UI
+  ownerEmail?: string;
+  ownerName?: string | null;
+  memberName?: string | null;
 };
 
 export type GroupCreatedEvent = {

@@ -137,6 +137,39 @@ export default function InAppNotifications() {
       });
     },
     onJoinRequestUpdated: (p) => {
+      // Si l'utilisateur courant vient d'être scanné (validation d'entrée)
+      try {
+        const me = String(user?.email || "").toLowerCase();
+        const member = String((p as any).memberEmail || "").toLowerCase();
+        if (p.scannedAt && me && member && me === member) {
+          show({
+            title: "Entrée validée",
+            message: p.ownerName
+              ? `Votre QR code a été scanné par ${p.ownerName}`
+              : (p.groupName ? `Votre QR code a été scanné (groupe ${p.groupName})` : "Votre QR code a été scanné"),
+            variant: "success",
+          });
+          return; // éviter d'empiler avec d'autres toasts pour le même event
+        }
+      } catch {}
+      // Si l'utilisateur courant est l'organisatrice qui vient de scanner
+      try {
+        const me = String(user?.email || "").toLowerCase();
+        const owner = String((p as any).ownerEmail || "").toLowerCase();
+        if (p.scannedAt && me && owner && me === owner) {
+          const cents = typeof p.amountCents === "number" ? p.amountCents : null;
+          const currency = (p.currency as string) || "EUR";
+          const formatted = cents != null ? new Intl.NumberFormat("fr-FR", { style: "currency", currency }).format(cents / 100) : undefined;
+          const who = (p as any).memberName || (p as any).memberEmail || "Le membre";
+          show({
+            title: "Scan réussi",
+            message: formatted ? `${who} — ${formatted} crédité sur votre compte` : `${who} — crédité sur votre compte`,
+            href: "/profile/transactions",
+            variant: "success",
+          });
+          return;
+        }
+      } catch {}
       if (p.status === "accepted") {
         show({
           title: "Demande acceptée",

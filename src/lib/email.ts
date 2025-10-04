@@ -70,8 +70,8 @@ export async function sendJoinAcceptedEmail(params: {
     ],
     accent: "#10b981",
     cta: {
-      label: "Ouvrir le scan",
-      url: `${getAppUrl()}/scan`,
+      label: "Afficher mon QR",
+      url: `${getAppUrl()}/qr/${params.eventSlug}/${encodeURIComponent(params.groupName)}`,
     },
     image: { src: absolutizeUrl(event?.imageUrl), alt: title },
   });
@@ -127,8 +127,8 @@ export async function sendOwnerNotifiedAcceptedEmail(params: {
     ],
     accent: "#10b981",
     cta: {
-      label: "Ouvrir le scan",
-      url: `${getAppUrl()}/scan`,
+      label: "Voir les demandes",
+      url: `${getAppUrl()}/events/${params.eventSlug}/requests`,
     },
   image: { src: absolutizeUrl(event?.imageUrl), alt: title },
   });
@@ -279,6 +279,95 @@ export async function sendOwnerJoinRequestedEmail(params: {
     return { ok: true as const };
   } catch (e) {
     console.error("[mail] send join-requested failed", e);
+    return { ok: false as const, reason: "send-failed" as const };
+  }
+}
+
+export async function sendMemberScannedEmail(params: {
+  to: string; // member email
+  eventSlug: string;
+  groupName: string;
+  ownerName?: string | null;
+}) {
+  const from = getFromHeader();
+  const replyTo = getReplyToHeader();
+  const transporter = getTransport();
+  const event = getEventBySlug(params.eventSlug);
+  const title = event?.title || params.eventSlug;
+  const subject = `Votre QR a été scanné — ${params.groupName} — ${title}`;
+  const who = params.ownerName || "l'organisatrice";
+  const plain = [
+    `Votre QR code a été scanné par ${who}.`,
+    `Groupe: ${params.groupName} — Événement: ${title}.`,
+  ].join("\n");
+  const html = renderBrandedEmail({
+    preheader: `QR scanné — ${params.groupName}`,
+    heading: "Entrée validée",
+    paragraphs: [
+      `Votre QR code a été scanné par <strong>${escapeHtml(who)}</strong>.`,
+      `Groupe: <strong>${escapeHtml(params.groupName)}</strong> — Événement: <strong>${escapeHtml(title)}</strong>.`,
+    ],
+    accent: "#10b981",
+  });
+  if (!transporter) {
+    console.log("[mail] dry-run send", { kind: "member-scanned", to: params.to, from, subject });
+    return { ok: false as const, reason: "smtp-not-configured" as const };
+  }
+  try {
+    console.log("[mail] sending", { kind: "member-scanned", to: params.to, from, subject });
+    const info = await transporter.sendMail({ from, to: params.to, subject, text: plain, html, replyTo });
+    try { console.log("[mail] sent", { kind: "member-scanned", to: params.to, messageId: info?.messageId, accepted: info?.accepted, rejected: info?.rejected, response: info?.response }); } catch {}
+    return { ok: true as const };
+  } catch (e) {
+    console.error("[mail] send member-scanned failed", e);
+    return { ok: false as const, reason: "send-failed" as const };
+  }
+}
+
+export async function sendOwnerScannedEmail(params: {
+  to: string; // owner email
+  eventSlug: string;
+  groupName: string;
+  memberEmail: string;
+  memberName?: string | null;
+  amountCents?: number | null;
+  currency?: string | null;
+}) {
+  const from = getFromHeader();
+  const replyTo = getReplyToHeader();
+  const transporter = getTransport();
+  const event = getEventBySlug(params.eventSlug);
+  const title = event?.title || params.eventSlug;
+  const who = (params.memberName && params.memberName.trim()) || prettyEmail(params.memberEmail);
+  const amount = typeof params.amountCents === "number" && params.amountCents >= 0
+    ? `${(params.amountCents / 100).toFixed(2)} ${params.currency || "EUR"}`
+    : undefined;
+  const subject = `Scan confirmé — ${params.groupName} — ${title}`;
+  const plain = [
+    `Vous venez de scanner ${who}.`,
+    amount ? `Montant crédité: ${amount}` : `Montant crédité: —`,
+  ].join("\n");
+  const html = renderBrandedEmail({
+    preheader: `Scan confirmé — ${who}`,
+    heading: "Scan réussi",
+    paragraphs: [
+      `Vous venez de scanner <strong>${escapeHtml(who)}</strong>.`,
+      amount ? `Montant crédité: <strong>${escapeHtml(amount)}</strong>` : `Montant crédité: —`,
+    ],
+    accent: "#10b981",
+    cta: { label: "Voir mes transactions", url: `${getAppUrl()}/profile/transactions` },
+  });
+  if (!transporter) {
+    console.log("[mail] dry-run send", { kind: "owner-scanned", to: params.to, from, subject });
+    return { ok: false as const, reason: "smtp-not-configured" as const };
+  }
+  try {
+    console.log("[mail] sending", { kind: "owner-scanned", to: params.to, from, subject });
+    const info = await transporter.sendMail({ from, to: params.to, subject, text: plain, html, replyTo });
+    try { console.log("[mail] sent", { kind: "owner-scanned", to: params.to, messageId: info?.messageId, accepted: info?.accepted, rejected: info?.rejected, response: info?.response }); } catch {}
+    return { ok: true as const };
+  } catch (e) {
+    console.error("[mail] send owner-scanned failed", e);
     return { ok: false as const, reason: "send-failed" as const };
   }
 }
