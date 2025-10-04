@@ -1,13 +1,18 @@
-/* Suppression de l'adaptation light/dark : tout est forcé en sombre */
+/* Thème sombre forcé pour tous les utilisateurs */
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
 }
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Forcer le thème sombre indépendamment des préférences système */
+html {
+  color-scheme: dark;
+}
+
+/* Forcer tous les éléments à utiliser les couleurs du thème sombre */
+* {
+  color-scheme: dark;
 }
 
 @theme inline {

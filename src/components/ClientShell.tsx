@@ -11,6 +11,7 @@ import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 import { ensurePushSubscription } from "@/lib/push-client";
 import InAppNotifications from "@/components/InAppNotifications";
 import { UserVisibilityTracker } from "@/components/UserVisibilityTracker";
+import { ForceDarkTheme } from "@/components/ForceDarkTheme";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -120,6 +121,9 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       
       {/* Tracker de visibilité pour gérer les notifications push */}
       <UserVisibilityTracker />
+      
+      {/* Forcer le thème sombre pour tous */}
+      <ForceDarkTheme />
     </>
   );
 }
