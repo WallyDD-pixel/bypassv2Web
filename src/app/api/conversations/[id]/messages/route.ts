@@ -40,16 +40,21 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
 		try {
 			const conv = await prisma.conversation.findUnique({ where: { id }, select: { id: true, eventSlug: true, groupName: true, members: { select: { userEmail: true } } } });
 		if (conv && conv.eventSlug && conv.groupName) {
-				const others = (conv.members || []).map(m => m.userEmail).filter(e => e && e !== created.senderEmail);
-				const unique = Array.from(new Set(others));
-				// Récupérer les noms: expéditeur + destinataires
-				const senderUser = await prisma.user.findUnique({ where: { email: created.senderEmail } });
-				const recips = await prisma.user.findMany({ where: { email: { in: unique } }, select: { email: true, name: true } });
-				const toNameMap = new Map(recips.map(r => [r.email, r.name] as const));
-						await Promise.allSettled(unique.map(async (to) => {
+				// Normaliser en minuscules pour éviter les faux positifs dues à la casse et exclure soi-même
+				const senderLc = String(created.senderEmail || "").toLowerCase();
+				const othersLc = (conv.members || [])
+					.map(m => String(m.userEmail || "").toLowerCase())
+					.filter(e => !!e && e !== senderLc);
+				const unique = Array.from(new Set(othersLc));
+				// Récupérer le profil de l'expéditeur (pour le nom dans l'email/push)
+				const senderUser = await prisma.user.findUnique({ where: { email: senderLc } });
+				// Optionnel: récupérer les noms des destinataires (non critique ici)
+				// const recips = await prisma.user.findMany({ where: { email: { in: unique } }, select: { email: true, name: true } });
+				// const toNameMap = new Map(recips.map(r => [r.email, r.name] as const));
+						await Promise.allSettled(unique.map(async (toLc) => {
 							// email
 							await sendNewMessageEmail({
-								to,
+								to: toLc,
 								eventSlug: conv.eventSlug!,
 								groupName: conv.groupName!,
 								conversationId: conv.id,
@@ -58,7 +63,7 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
 								content: created.content,
 							});
 							// push
-							await sendPushToUser(to, {
+							await sendPushToUser(toLc, {
 								title: `Nouveau message de ${senderUser?.name || created.senderEmail}`,
 								body: created.content.slice(0, 120),
 								url: `/messages/${conv.id}`,
