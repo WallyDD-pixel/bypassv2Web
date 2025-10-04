@@ -169,75 +169,81 @@ export default function MyRequestsPage() {
   if (loading || reqLoading) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-8">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 p-6 animate-pulse h-40" />
+        <div className="rounded-2xl border border-white/15 bg-white/5 p-6 animate-pulse h-40" />
       </main>
     );
   }
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8">
-  <h1 className="text-xl sm:text-2xl font-extrabold text-white mb-4">Mes demandes</h1>
+      <h1 className="text-xl sm:text-2xl font-extrabold text-white mb-4">Mes demandes</h1>
 
       {!isAuthenticated && !loading && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/5">
           <p className="text-sm text-white/80">Connectez-vous pour voir vos demandes.</p>
-          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-slate-900 dark:text-white underline">Se connecter</Link>
+          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-white underline">Se connecter</Link>
         </div>
       )}
 
       {isAuthenticated && items.length === 0 && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/5 text-slate-700">
           Aucune demande envoyée pour le moment.
         </div>
       )}
 
       {isAuthenticated && items.length > 0 && (
         <ul className="space-y-3">
-      {items.map(({ event, groupName, amount, currency, status, createdAt, method, ownerAvatar }, idx) => (
-            <li key={`${eventSlug(event)}:${groupName}:${idx}`} className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur p-4 flex items-center gap-4">
-        <div className="relative w-16 h-16 shrink-0">
-          <img
-            src={event.imageUrl}
-            alt=""
-            className="w-16 h-16 rounded-xl object-cover object-center"
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              const t = e.currentTarget as HTMLImageElement;
-              t.onerror = null;
-              t.src = "/window.svg";
-            }}
-          />
-          {ownerAvatar && (
-            <img
-              src={ownerAvatar}
-              alt=""
-              className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full object-cover object-center ring-2 ring-white/90 dark:ring-black/50"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                const t = e.currentTarget as HTMLImageElement;
-                t.onerror = null;
-                t.src = "/window.svg";
-              }}
-            />
-          )}
-        </div>
+          {items.map(({ event, groupName, amount, currency, status, createdAt, method, ownerAvatar }, idx) => (
+            <li key={`${eventSlug(event)}:${groupName}:${idx}`} className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-4 flex items-center gap-4">
+              <div className="relative w-16 h-16 shrink-0">
+                <img
+                  src={event.imageUrl}
+                  alt=""
+                  className="w-16 h-16 rounded-xl object-cover object-center"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const t = e.currentTarget as HTMLImageElement;
+                    t.onerror = null;
+                    t.src = "/window.svg";
+                  }}
+                />
+                {ownerAvatar && (
+                  <img
+                    src={ownerAvatar}
+                    alt=""
+                    className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full object-cover object-center ring-2 ring-white/90"
+                    referrerPolicy="no-referrer"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement, globalThis.Event>) => {
+                      const t = e.currentTarget as HTMLImageElement;
+                      t.onerror = null;
+                      t.src = "/window.svg";
+                    }}
+                  />
+                )}
+              </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-slate-600 dark:text-slate-300 truncate">{new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(event.startAt))}</div>
-                <Link href={`/events/${eventSlug(event)}`} className="block font-bold text-slate-900 dark:text-white truncate">{event.title}</Link>
-                <div className="text-sm text-slate-700 dark:text-slate-300 truncate">Groupe demandé: <span className="font-semibold">{groupName}</span></div>
-                <div className="mt-1 text-[13px] text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                <div className="text-sm text-slate-600 truncate">{new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(event.startAt))}</div>
+                <Link href={`/events/${eventSlug(event)}`} className="block font-bold text-white truncate">{event.title}</Link>
+                <div className="text-sm text-slate-700 truncate">Groupe demandé: <span className="font-semibold">{groupName}</span></div>
+                <div className="mt-1 text-[13px] text-slate-600 flex items-center gap-2">
                   <span>
                     Montant payé: <span className="font-semibold">{typeof amount === 'number' ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: currency || 'EUR' }).format(amount) : '—'}</span>
                     {typeof amount === 'number' && method ? ` • ${method === 'card' ? 'Carte' : 'PayPal'}` : ''}
                   </span>
                   {status === 'accepted' && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-200">Acceptée</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700">
+                      Acceptée
+                    </span>
                   )}
                   {status === 'refused' && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700 dark:text-rose-200">Refusée</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700">
+                      Refusée
+                    </span>
                   )}
                   {(!status || status === 'pending') && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700 dark:text-amber-200">En attente</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700">
+                      Attente
+                    </span>
                   )}
                 </div>
               </div>

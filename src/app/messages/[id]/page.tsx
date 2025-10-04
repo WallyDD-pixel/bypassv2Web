@@ -141,7 +141,7 @@ export default function ConversationPage() {
 
 	return (
 		<main
-				className="w-full overflow-hidden px-4 pt-4 text-slate-900 dark:text-white flex flex-col min-h-0 transition-all duration-300 ease-out"
+				className="w-full overflow-hidden px-4 pt-4 text-slate-900 flex flex-col min-h-0 transition-all duration-300 ease-out"
 				style={vvh ? { height: `${vvh}px`, paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" } : { paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" }}
 			>
 
@@ -152,13 +152,13 @@ export default function ConversationPage() {
 						style={{ overflowAnchor: "none" as any }}
 					>
 				{!Number.isFinite(id) ? (
-					<div className="text-sm text-slate-600 dark:text-slate-300">Identifiant de conversation invalide.</div>
+					<div className="text-sm text-slate-600">Conversation invalide.</div>
 				) : loading ? (
-					<div className="text-sm text-slate-600 dark:text-slate-300">Chargement…</div>
+					<div className="text-sm text-slate-600">Chargement…</div>
 				) : error ? (
-					<div className="text-sm text-red-600 dark:text-red-400">{error}</div>
+					<div className="text-sm text-red-600">{error}</div>
 				) : messages.length === 0 ? (
-					<div className="text-sm text-slate-600 dark:text-slate-300 text-center mt-6">Aucun message pour l’instant.</div>
+					<div className="text-sm text-slate-600 text-center mt-6">Aucun message pour l’instant.</div>
 				) : (
 					messages.map((m) => {
 						const mine = user?.email && m.senderEmail.toLowerCase() === user.email.toLowerCase();
@@ -167,8 +167,8 @@ export default function ConversationPage() {
 								key={m.id}
 								className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
 									mine
-										? "ml-auto bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-										: "bg-white/80 dark:bg-white/10"
+										? "ml-auto bg-slate-900 text-white"
+										: "bg-white/80"
 								}`}
 							>
 								<div className="text-[10px] opacity-70 mb-0.5">{m.senderEmail.split("@")[0]}</div>
@@ -181,19 +181,19 @@ export default function ConversationPage() {
 					<div ref={endRef} />
 				</div>
 
-				<div className="pt-2 mt-2 flex items-center gap-2 border-t border-white/50 dark:border-white/10">
+				<div className="pt-2 mt-2 flex items-center gap-2 border-t border-white/50">
 					<input
 						ref={inputRef}
 						type="text"
 						placeholder="Écrire un message…"
-						className="flex-1 px-3 py-2 rounded-xl bg-white/80 dark:bg-white/10 border border-white/50 dark:border-white/10 outline-none"
+						className="flex-1 px-3 py-2 rounded-xl bg-white/80 border border-white/50 outline-none"
 						onKeyDown={(e) => {
 							if ((e as any).key === "Enter") send();
 						}}
 						onFocus={() => setTimeout(() => scrollToEnd("smooth"), 50)}
 						onBlur={() => setTimeout(() => scrollToEnd(), 80)}
 					/>
-					<button onClick={send} className="px-3 py-2 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900">
+					<button onClick={send} className="px-3 py-2 rounded-xl bg-slate-900 text-white">
 						Envoyer
 					</button>
 				</div>

@@ -103,24 +103,29 @@ export default function FreeJoinPage() {
   return (
     <main className="max-w-md mx-auto px-4 py-10">
       <div className="mb-6 flex items-center gap-3">
-        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 dark:text-white">Demande gratuite</h1>
+        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 gratuite">Demande gratuite</h1>
       </div>
 
-      <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
+      <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
         <div className="mb-4">
-          <div className="text-sm text-slate-600 dark:text-slate-300">Vous demandez à rejoindre</div>
-          <div className="text-lg font-bold text-slate-900 dark:text-white">{group.name}</div>
+          <div className="text-sm text-slate-600">Demandez à rejoindre</div>
+          <div className="text-lg font-bold text-slate-900">{groupName}</div>
         </div>
 
-        <div className="mt-2 rounded-xl border border-emerald-300/60 dark:border-emerald-400/30 bg-emerald-50/80 dark:bg-emerald-500/10 p-4">
-          <div className="text-sm text-emerald-900 dark:text-emerald-100">
+        <div className="mt-2 rounded-xl border border-emerald-300/60 bg-emerald-50/80 p-4">
+          <div className="text-sm text-emerald-900">
             <div className="font-semibold mb-0.5">Demande pour les femmes</div>
             <p>Les femmes peuvent demander à rejoindre un groupe gratuitement. Votre demande sera envoyée au groupe pour validation.</p>
           </div>
         </div>
 
         <div className="mt-6 flex items-center justify-between gap-3">
-          <button onClick={() => router.back()} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900 dark:bg-white/10 dark:text-white">Annuler</button>
+          <button
+            onClick={() => router.back()}
+            className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900"
+          >
+            Retour
+          </button>
           <button
             disabled={sending}
             onClick={async () => {
@@ -128,7 +133,7 @@ export default function FreeJoinPage() {
               await persistRequest();
               router.push(`/events/${slug}/join?status=success`);
             }}
-            className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 disabled:opacity-50"
+            className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white disabled:opacity-50"
           >
             {sending ? "Envoi…" : "Envoyer la demande gratuite"}
           </button>

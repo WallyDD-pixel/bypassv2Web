@@ -24,7 +24,7 @@ export function GlassCard<E extends ElementType = "div">({ as, padding = "md", c
   return (
     <Comp
       className={cx(
-        "rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl",
+        "rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl",
         padMap[padding],
         className
       )}

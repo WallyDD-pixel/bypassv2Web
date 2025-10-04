@@ -107,49 +107,51 @@ export default function MessagesPage() {
   const showEmpty = !fetching && (!conversations || conversations.length === 0);
 
   return (
-    <main className="w-full max-w-[340px] md:max-w-[380px] mx-auto px-2 pb-20 pt-2 text-slate-900 dark:text-white">
+    <main className="w-full max-w-[340px] md:max-w-[380px] mx-auto px-2 pb-20 pt-2 text-white">
       <header className="flex items-center gap-2 mb-3">
-        <div className="w-8 h-8 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 grid place-items-center">
+        <div className="w-8 h-8 rounded-lg bg-slate-900 text-white grid place-items-center">
           <IconEnvelope />
         </div>
         <h1 className="text-sm font-medium">Messages</h1>
       </header>
 
       {fetching ? (
-        <section className="rounded-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur p-3 text-center">
-          <div className="text-xs text-slate-700 dark:text-slate-300">Chargement…</div>
+        <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-3 text-center">
+          <div className="text-xs text-slate-700">
+            Chargement des conversations...
+          </div>
         </section>
       ) : showEmpty ? (
-        <section className="rounded-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur p-3 text-center">
-          <div className="mx-auto mb-2 w-10 h-10 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 grid place-items-center">
+        <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-3 text-center">
+          <div className="mx-auto mb-2 w-10 h-10 rounded-full bg-slate-900 text-white grid place-items-center">
             <IconEnvelope />
           </div>
           <h2 className="text-base font-semibold mb-1">Aucune conversation</h2>
-          <p className="text-xs text-slate-600 dark:text-slate-300 mb-3">
+          <p className="text-xs text-slate-600 mb-3">
             Quand vous rejoignez des groupes ou démarrez un échange, vos conversations apparaissent ici.
           </p>
           <div className="flex items-center justify-center gap-2">
             <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm text-xs"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-sm text-xs"
             >
               Explorer des événements
             </Link>
             <Link
               href="/requests"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300/60 dark:border-white/15 hover:bg-white/60 dark:hover:bg-white/10 transition text-xs"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300/60 hover:bg-white/60 transition text-xs"
             >
               Voir mes demandes
             </Link>
           </div>
         </section>
       ) : (
-        <section className="rounded-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur p-1">
-          <ul className="divide-y divide-white/40 dark:divide-white/10">
+        <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-1">
+          <ul className="divide-y divide-white/40">
             {conversations.map((c) => (
               <li key={c.id} className="">
-                <Link href={`/messages/${c.id}`} className="flex items-center gap-2 px-3 py-2 hover:bg-white/60 dark:hover:bg-white/10 rounded-lg">
-                  <div className="w-8 h-8 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 grid place-items-center text-[11px] font-bold">
+                <Link href={`/messages/${c.id}`} className="flex items-center gap-2 px-3 py-2 hover:bg-white/60 rounded-lg">
+                  <div className="w-8 h-8 rounded-lg bg-slate-900 text-white grid place-items-center text-[11px] font-bold">
                     {c.groupName.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -158,14 +160,14 @@ export default function MessagesPage() {
                       <div className="flex items-center gap-2">
                         <div className="text-[10px] opacity-60 whitespace-nowrap">{new Date(c.createdAt).toLocaleDateString()}</div>
                         {unreads[c.id] && (
-                          <span aria-label="non lu" className="inline-block w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white/70 dark:ring-black/40" />
+                          <span aria-label="non lu" className="inline-block w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white/70" />
                         )}
                       </div>
                     </div>
-                    <div className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                    <div className="mt-0.5 text-[11px] text-slate-600 flex items-center gap-2">
                       <span className="truncate">{c.eventSlug}</span>
                       <span className="opacity-50">•</span>
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/70 dark:bg-white/10 text-slate-900 dark:text-white border border-white/40 dark:border-white/10 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/10 text-white border border-white/40 whitespace-nowrap">
                         {c._count.members} membres
                       </span>
                     </div>

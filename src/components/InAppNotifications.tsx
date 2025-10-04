@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { useRealtime } from "@/lib/useRealtime";
 
@@ -33,6 +33,7 @@ export default function InAppNotifications() {
   const audioReadyRef = useRef<boolean>(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated } = useAuth();
 
   const dismiss = useCallback((id: string) => {
@@ -111,6 +112,18 @@ export default function InAppNotifications() {
       const sender = String(p.senderEmail || "").toLowerCase();
       const me = String(user?.email || "").toLowerCase();
       if (sender && me && sender === me) return; // ne pas notifier pour ses propres messages
+      
+      // Ne pas afficher la notification si on est déjà sur la page de cette conversation
+      // ou sur la page des messages en général
+      const currentConversationPath = `/messages/${p.conversationId}`;
+      console.log('🔍 Notification check:', { 
+        pathname, 
+        currentConversationPath, 
+        conversationId: p.conversationId,
+        shouldSkip: pathname === currentConversationPath || pathname === '/messages'
+      });
+      if (pathname === currentConversationPath || pathname === '/messages') return;
+      
       const preview = (p.content || "").slice(0, 90);
       const who = (p as any).senderName || p.senderEmail || "Quelqu'un";
       show({
@@ -155,7 +168,7 @@ export default function InAppNotifications() {
   return (
     <NotificationsContext.Provider value={ctx}>
       {/* Conteneur des toasts en haut */}
-      <div className="pointer-events-none fixed left-1/2 top-3 z-50 -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
+      <div className="pointer-events-none fixed left-1/2 top-3 z-[9999] -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
         {items.map((n) => (
           <div
             key={n.id}
@@ -174,7 +187,7 @@ export default function InAppNotifications() {
                 ? "bg-gradient-to-br from-amber-500/25 to-amber-600/25 border-white/10 text-white"
                 : n.variant === "error"
                 ? "bg-gradient-to-br from-rose-500/25 to-rose-600/25 border-white/10 text-white"
-                : "bg-white/65 dark:bg-white/5 border-white/40 dark:border-white/15 text-slate-900 dark:text-white",
+                : "bg-white/5 border-white/40 text-white",
               // Ombres douces comme la TopNav
               "shadow-[0_10px_30px_rgba(31,38,135,0.18)]",
               // Animation
@@ -196,7 +209,7 @@ export default function InAppNotifications() {
                       ? "bg-amber-400/20 text-amber-200"
                       : n.variant === "error"
                       ? "bg-rose-400/20 text-rose-200"
-                      : "bg-white/50 dark:bg-white/10 text-slate-900/70 dark:text-white/80",
+                      : "bg-white/10 text-slate-900/70"
                   ].join(" ")}>
                     •
                   </span>
@@ -207,7 +220,7 @@ export default function InAppNotifications() {
                   {n.title}
                 </div>
                 {n.message && (
-                  <div className="mt-0.5 text-xs leading-5 text-black/70 dark:text-white/85 line-clamp-2">
+                  <div className="mt-0.5 text-xs leading-5 text-black/70 line-clamp-2">
                     {n.message}
                   </div>
                 )}
@@ -215,23 +228,25 @@ export default function InAppNotifications() {
               <button
                 aria-label="Fermer"
                 onClick={(e) => { e.stopPropagation(); dismiss(n.id); }}
-                className="rounded-md p-1.5 text-black/60 hover:text-black/80 dark:text-white/80 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition"
+                className="rounded-md p-1.5 text-black/60 hover:text-black/80 hover:bg-black/5 transition"
               >
                 ×
               </button>
             </div>
             {/* barre de progression */}
-            <div className="h-0.5 w-full bg-black/10 dark:bg-white/10">
-              <div className={[
-                "h-full animate-[bar_6s_linear]",
-                n.variant === "success"
-                  ? "bg-emerald-300"
-                  : n.variant === "warning"
-                  ? "bg-amber-300"
-                  : n.variant === "error"
-                  ? "bg-rose-300"
-                  : "bg-slate-300 dark:bg-white/60",
-              ].join(" ")} />
+            <div className="h-0.5 w-full bg-black/10">
+              <div
+                className={[
+                  "h-full animate-[bar_6s_linear]",
+                  n.variant === "success"
+                    ? "bg-emerald-300"
+                    : n.variant === "warning"
+                    ? "bg-amber-300"
+                    : n.variant === "error"
+                    ? "bg-rose-300"
+                    : "bg-slate-300"
+                ].join(" ")}
+              />
             </div>
           </div>
         ))}

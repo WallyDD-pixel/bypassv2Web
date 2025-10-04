@@ -6,10 +6,15 @@ import TopNav from "@/components/TopNav";
 import BottomNav from "@/components/BottomNav";
 import MobileHeader from "@/components/MobileHeader";
 import { useAuth } from "@/lib/auth";
-import GenericSkeleton, { HomeSkeleton, ExploreSkeleton, EventDetailSkeleton, RequestsSkeleton, ScannerSkeleton, ProfileSkeleton } from "@/components/Skeletons";
+import GenericSkeleton, { HomeSkeleton, ExploreSkeleton, ProfileSkeleton } from "@/components/Skeletons";
+import ScannerSkeleton from "@/components/Skeletons";
+import RequestsSkeleton from "@/components/Skeletons";
+import EventDetailSkeleton from "@/components/Skeletons";
 import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 import { ensurePushSubscription } from "@/lib/push-client";
 import InAppNotifications from "@/components/InAppNotifications";
+import { UserVisibilityTracker } from "@/components/UserVisibilityTracker";
+import { ForceDarkTheme } from "@/components/ForceDarkTheme";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -116,6 +121,12 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       </main>
       {/* BottomNav: cacher sur /login */}
       {showBottomNav && <BottomNav />}
+      
+      {/* Tracker de visibilité pour gérer les notifications push */}
+      <UserVisibilityTracker />
+      
+      {/* Forcer le thème sombre pour tous */}
+      <ForceDarkTheme />
     </>
   );
 }

@@ -85,14 +85,14 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
           />
           <motion.div
             ref={ref}
-      className="relative w-full max-w-[640px] rounded-2xl border border-black/10 dark:border-white/15 bg-white/90 dark:bg-[#0b0b0b]/90 backdrop-blur-xl p-6 shadow-2xl max-h-[85dvh] overflow-y-auto"
+      className="relative w-full max-w-[640px] rounded-2xl border border-white/15 bg-[#0b0b0b]/90 backdrop-blur-xl p-6 shadow-2xl max-h-[85dvh] overflow-y-auto"
       initial={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
       animate={prefersReduced ? { opacity: 1 } : { opacity: 1, scale: 1, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
       exit={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.98, transition: { duration: 0.18 } }}
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">{mode === "wizard" ? "Demande d’adhésion" : "Rejoindre un groupe"}</h3>
-              <button aria-label="Fermer" onClick={onClose} className="rounded-lg px-2 py-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">✕</button>
+              <h3 className="text-lg font-extrabold text-white">{mode === "wizard" ? "Demande d’adhésion" : "Rejoindre un groupe"}</h3>
+              <button aria-label="Fermer" onClick={onClose} className="rounded-lg px-2 py-1 text-slate-600 hover:text-slate-900
             </div>
             {mode === "wizard" && activeGroup ? (
               <div>
@@ -101,17 +101,17 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
                     <img src={activeGroup.avatarUrl} alt={activeGroup.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <div className="font-semibold text-slate-900 dark:text-white">{activeGroup.name}</div>
+                    <div className="font-semibold text-white">{activeGroup.name}</div>
                     <div className="mt-1 flex flex-wrap gap-2 text-[12px]">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#db2777" strokeWidth="1.8"/><path d="M7 21c.8-2.7 3.2-4.5 5-4.5S16.2 18.3 17 21" stroke="#db2777" strokeWidth="1.8" strokeLinecap="round"/></svg>
                         {activeGroup.femaleCount}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#2563eb" strokeWidth="1.8"/><path d="M15 21v-3a3 3 0 1 0-6 0v-3" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round"/></svg>
                         {activeGroup.maleCount}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 11a4 4 0 1 0-8 0m12 7v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
                         {activeGroup.members} membres
                       </span>
@@ -127,27 +127,27 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
                   const alreadyRequested = requested.some(r => r.group === groupKey && r.event === slug && (r.status === 'pending' || r.status === 'accepted' || !r.status));
                   return (
                     <div>
-                      <div className="rounded-xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/10 p-4 space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                        <div className="flex items-center gap-2"><span className="font-semibold text-slate-900 dark:text-white">Votre profil:</span> {isMale ? "Homme" : "Femme"} (détecté automatiquement)</div>
-                        <div className="flex items-center gap-2"><span className="font-semibold text-slate-900 dark:text-white">Conditions:</span> {priceTxt} • {arrivalTxt}</div>
-                        <div className="flex items-center gap-2"><span className="font-semibold text-slate-900 dark:text-white">Places hommes restantes:</span> {maleSpots}</div>
+                      <div className="rounded-xl border border-white/15 bg-white/10 p-4 space-y-2 text-sm text-slate-700
+                        <div className="flex items-center gap-2"><span className="font-semibold text-white">Votre profil:</span> {isMale ? "Homme" : "Femme"} (détecté automatiquement)</div>
+                        <div className="flex items-center gap-2"><span className="font-semibold text-white">Conditions:</span> {priceTxt} • {arrivalTxt}</div>
+                        <div className="flex items-center gap-2"><span className="font-semibold text-white">Places hommes restantes:</span> {maleSpots}</div>
                       </div>
                       {!isMale && (
-                        <div className="mt-2 text-[13px] text-slate-600 dark:text-slate-400">Pour les profils femmes, la demande est simple: vous accompagnez le groupe à l’entrée, sans paiement requis.</div>
+                        <div className="mt-2 text-[13px] text-slate-600 les profils femmes, la demande est simple: vous accompagnez le groupe à l’entrée, sans paiement requis.</div>
                       )}
                       <div className="mt-4">
                         <label className="group flex items-start gap-3 cursor-pointer select-none">
                           <input type="checkbox" className="sr-only" checked={acceptCGU} onChange={(e) => setAcceptCGU(e.target.checked)} />
-                          <span className={`mt-0.5 h-5 w-5 rounded-md border grid place-items-center transition shadow-sm ${acceptCGU ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white/70 dark:bg-white/10 border-black/10 dark:border-white/15 text-transparent'}`}>
+                          <span className={`mt-0.5 h-5 w-5 rounded-md border grid place-items-center transition shadow-sm ${acceptCGU ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white/10 border-white/15 text-transparent'}`}>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`transition ${acceptCGU ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
                               <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                           </span>
-                          <span className="text-sm text-slate-700 dark:text-slate-300">J’accepte les conditions et je confirme ma demande pour ce groupe.</span>
+                          <span className="text-sm text-slate-700 les conditions et je confirme ma demande pour ce groupe.</span>
                         </label>
                       </div>
                       <div className="mt-5 flex items-center justify-between gap-3">
-                        <button onClick={() => { setMode('list'); setActiveGroup(null); }} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900 dark:bg-white/10 dark:text-white">Retour</button>
+                        <button onClick={() => { setMode('list'); setActiveGroup(null); }} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900
                         <button
                           disabled={submitting || !acceptCGU || (isMale && maleSpots === 0)}
                           onClick={() => {
@@ -164,7 +164,7 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
                               setAcceptCGU(false);
                             }, 500);
                           }}
-                          className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 disabled:opacity-50"
+                          className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white disabled:opacity-50"
                         >
                           {submitting ? 'Envoi…' : 'Envoyer la demande'}
                         </button>
@@ -176,7 +176,7 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
             ) : (
               <>
                 {groups.length === 0 ? (
-                  <p className="text-slate-600 dark:text-slate-300">Aucun groupe pour le moment. Crée le premier !</p>
+                  <p className="text-slate-600 groupe pour le moment. Crée le premier !</p>
                 ) : (
                   <ul className="divide-y divide-white/10">
                     {groups.map((g, i) => {
@@ -209,17 +209,17 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
                               <img src={g.avatarUrl} alt={g.name} className="w-full h-full object-cover" />
                             </div>
                             <div>
-                              <div className="font-semibold text-slate-900 dark:text-white">{g.name}</div>
+                              <div className="font-semibold text-white">{g.name}</div>
                               <div className="mt-1 flex flex-wrap gap-2 text-[12px]">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#db2777" strokeWidth="1.8"/><path d="M7 21c.8-2.7 3.2-4.5 5-4.5S16.2 18.3 17 21" stroke="#db2777" strokeWidth="1.8" strokeLinecap="round"/></svg>
                                   {g.femaleCount}
                                 </span>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#2563eb" strokeWidth="1.8"/><path d="M15 21v-3a3 3 0 1 0-6 0v-3" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round"/></svg>
                                   {g.maleCount}
                                 </span>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-slate-200">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/10 text-slate-800
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 11a4 4 0 1 0-8 0m12 7v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
                                   {g.members} membres
                                 </span>
@@ -227,17 +227,17 @@ export default function JoinGroupModal({ slug, open, onClose, groups }: Props) {
                             </div>
                           </div>
                           {isMine ? (
-                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">Ce groupe vous appartient</span>
+                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 border border-emerald-500/30">Ce groupe vous appartient</span>
                           ) : alreadyRequested ? (
-                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">Demande envoyée</span>
+                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 border border-amber-500/30">Demande envoyée</span>
                           ) : isMale && maleSpots === 0 ? (
-                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-500/15 text-slate-700 dark:text-slate-300 border border-slate-500/30">Complet pour hommes</span>
+                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-500/15 text-slate-700 border border-slate-500/30">Complet pour hommes</span>
                           ) : alreadyRequested ? (
-                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">Déjà demandé</span>
+                            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 border border-amber-500/30">Déjà demandé</span>
                           ) : (
                             <button
                               onClick={onJoinClick}
-                              className="rounded-xl px-3 py-1.5 text-xs font-semibold shadow bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90"
+                              className="rounded-xl px-3 py-1.5 text-xs font-semibold shadow bg-slate-900 text-white hover:opacity-90"
                             >
                               Rejoindre ce groupe
                             </button>

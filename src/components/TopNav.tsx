@@ -24,9 +24,9 @@ export default function TopNav() {
   return (
     <header className="hidden md:block">
       <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(980px,calc(100%-2rem))]">
-        <div className="backdrop-blur-xl bg-white/65 dark:bg-white/5 border border-white/40 dark:border-white/15 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl">
+        <div className="backdrop-blur-xl bg-white/5 border border-white/15 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl">
           <div className="px-4 h-14 flex items-center gap-4">
-            <div className="px-3 py-2 rounded-xl font-semibold text-slate-900 dark:text-white bg-white/70 dark:bg-white/10 border border-white/60 dark:border-white/15 shadow-sm">
+            <div className="px-3 py-2 rounded-xl font-semibold text-white bg-white/10 border border-white/15 shadow-sm">
               Bypass
             </div>
             <nav className="flex-1 flex items-center gap-1">
@@ -37,10 +37,10 @@ export default function TopNav() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setClicked(item.href)}
-                    className={`px-3 py-2 rounded-xl text-sm transition-colors text-slate-900/90 dark:text-white/90 flex items-center gap-2 ${
+                    className={`px-3 py-2 rounded-xl text-sm transition-colors text-white/90 flex items-center gap-2 ${
                       active
-                        ? "bg-white/80 dark:bg-white/15 border border-white/60 dark:border-white/10 shadow-sm"
-                        : "hover:bg-white/60 dark:hover:bg-white/10 border border-transparent"
+                        ? "bg-white/15 border border-white/10 shadow-sm"
+                        : "hover:bg-white/10 border border-transparent"
                     }`}
                   >
                     {item.label}

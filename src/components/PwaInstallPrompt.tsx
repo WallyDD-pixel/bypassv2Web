@@ -62,7 +62,7 @@ export default function PwaInstallPrompt() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] px-2 py-1" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}>
-      <div className="mx-auto max-w-3xl rounded-lg border border-white/10 backdrop-blur-xl bg-white/50 dark:bg-white/5 shadow-lg text-slate-900 dark:text-white px-2.5 py-1.5 flex items-center gap-2">
+      <div className="mx-auto max-w-3xl rounded-lg border border-white/10 backdrop-blur-xl bg-white/5 shadow-lg text-white px-2.5 py-1.5 flex items-center gap-2">
         <div className="flex-1 text-xs sm:text-sm">
           {mode === "android" ? (
             <>
@@ -96,7 +96,7 @@ export default function PwaInstallPrompt() {
           </button>
         )}
         <button
-          className="px-2 py-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:underline"
+          className="px-2 py-1 text-xs sm:text-sm text-slate-600 hover:underline"
           onClick={() => {
             setShow(false);
             localStorage.setItem("pwa:install:dismissed", "1");
@@ -109,7 +109,7 @@ export default function PwaInstallPrompt() {
       {help && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center px-4">
           <div className="absolute inset-0 bg-black/60" onClick={() => setHelp(false)} />
-          <div className="relative w-full max-w-md rounded-2xl border border-white/15 bg-white/90 dark:bg-slate-900/95 text-slate-900 dark:text-white p-4 shadow-xl">
+          <div className="relative w-full max-w-md rounded-2xl border border-white/15 bg-slate-900/95 text-white p-4 shadow-xl">
             <div className="text-base sm:text-lg font-semibold mb-2">Ajouter à l’écran d’accueil (iOS)</div>
             <ol className="list-decimal ml-5 space-y-1 text-xs sm:text-sm">
               <li>Appuyez sur le bouton <strong>Partager</strong> dans la barre du navigateur.</li>

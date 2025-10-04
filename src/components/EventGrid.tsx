@@ -76,7 +76,7 @@ export default function EventGrid({ groups }: Props) {
               <div
                 role="separator"
                 aria-hidden
-                className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-slate-400/40 dark:via-white/20 to-transparent"
+                className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-slate-400/40 to-transparent"
               />
             </div>
           )}

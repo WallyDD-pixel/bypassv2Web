@@ -4,6 +4,7 @@ import { getServerUserFromRequest } from "@/lib/auth-server";
 import { emitMessageCreated } from "@/lib/events";
 import { sendNewMessageEmail } from "@/lib/email";
 import { sendPushToUser } from "@/lib/webpush";
+import { isUserActive } from "@/app/api/user-visibility/route";
 
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
 	const { id: idStr } = await ctx.params;
@@ -57,12 +58,14 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
 								senderName: senderUser?.name || null,
 								content: created.content,
 							});
-							// push
-							await sendPushToUser(to, {
-								title: `Nouveau message de ${senderUser?.name || created.senderEmail}`,
-								body: created.content.slice(0, 120),
-								url: `/messages/${conv.id}`,
-							});
+							// push (seulement si l'utilisateur n'est pas actif sur le site)
+							if (!isUserActive(to)) {
+								await sendPushToUser(to, {
+									title: `Nouveau message de ${senderUser?.name || created.senderEmail}`,
+									body: created.content.slice(0, 120),
+									url: `/messages/${conv.id}`,
+								});
+							}
 						}));
 		}
 	} catch {}

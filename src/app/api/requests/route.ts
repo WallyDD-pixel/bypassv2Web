@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerUserFromRequest } from "@/lib/auth-server";
 import { sendPushToUser } from "@/lib/webpush";
 import { sendOwnerJoinRequestedEmail } from "@/lib/email";
+import { isUserActive } from "@/app/api/user-visibility/route";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -85,12 +86,14 @@ export async function POST(req: NextRequest) {
           amountCents: amountCents != null ? Number(amountCents) : null,
           currency: currency || null,
         });
-        // push
-        await sendPushToUser(ownerEmail, {
-          title: "Nouvelle demande de groupe",
-          body: `${authUser?.name || String(memberEmail)} propose de rejoindre ${groupName}`,
-          url: `/events/${eventSlug}/requests`,
-        });
+        // push (seulement si l'utilisateur n'est pas actif sur le site)
+        if (!isUserActive(ownerEmail)) {
+          await sendPushToUser(ownerEmail, {
+            title: "Nouvelle demande de groupe",
+            body: `${authUser?.name || String(memberEmail)} propose de rejoindre ${groupName}`,
+            url: `/events/${eventSlug}/requests`,
+          });
+        }
       }
     } catch {}
     return NextResponse.json(created, { status: 201 });
