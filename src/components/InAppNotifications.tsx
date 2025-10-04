@@ -116,6 +116,12 @@ export default function InAppNotifications() {
       // Ne pas afficher la notification si on est déjà sur la page de cette conversation
       // ou sur la page des messages en général
       const currentConversationPath = `/messages/${p.conversationId}`;
+      console.log('🔍 Notification check:', { 
+        pathname, 
+        currentConversationPath, 
+        conversationId: p.conversationId,
+        shouldSkip: pathname === currentConversationPath || pathname === '/messages'
+      });
       if (pathname === currentConversationPath || pathname === '/messages') return;
       
       const preview = (p.content || "").slice(0, 90);
