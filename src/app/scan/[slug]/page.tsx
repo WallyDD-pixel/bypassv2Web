@@ -335,7 +335,7 @@ export default function EventScannerPage() {
         return;
       }
       setScanned(data);
-      markAsScanned(data).then((res) => {
+  markAsScanned(data).then((res) => {
         // Incrémenter le solde local de l'organisatrice
         let balanceTxt: string | undefined = undefined;
         const tx: { id: string; ts: string; eventSlug: string; groupName: string; memberEmail: string; amountCents: number; currency: string; method?: string } | null = (() => {
@@ -357,6 +357,10 @@ export default function EventScannerPage() {
           }
         })();
         try {
+          if (res.alreadyScanned) {
+            // Ne pas incrémenter le solde en cas de double scan
+            throw new Error('already-scanned');
+          }
           const key = `wallet:balance:${(user?.email || '').toLowerCase()}`;
           const raw = localStorage.getItem(key);
           const currency = (data.currency || 'EUR').toUpperCase();
@@ -392,10 +396,18 @@ export default function EventScannerPage() {
     }
   };
 
-  const markAsScanned = async (p: DecodedPayload): Promise<{ ok: boolean; display: string; amountTxt?: string; serverUpdated: boolean }> => {
+  const markAsScanned = async (p: DecodedPayload): Promise<{ ok: boolean; display: string; amountTxt?: string; serverUpdated: boolean; alreadyScanned?: boolean }> => {
     try {
+      // Idempotence locale: empêcher double-crédit
+      const scanKey = `qrScanned:${slug}:${norm(p.group)}:${p.email.toLowerCase()}`;
+      if (typeof window !== 'undefined' && window.localStorage.getItem(scanKey)) {
+        const display = (() => { try { const ru = localStorage.getItem(`auth:users:${p.email.toLowerCase()}`); if (ru) { const up = JSON.parse(ru) as { name?: string }; return up?.name || prettyName(p.email); } return prettyName(p.email); } catch { return prettyName(p.email); }})();
+        const amountTxt = typeof p.amount === 'number' ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: p.currency || 'EUR' }).format(p.amount) : undefined;
+        return { ok: false, display, amountTxt, serverUpdated: false, alreadyScanned: true };
+      }
       // 1) Essayer de mettre à jour côté serveur
       let serverUpdated = false;
+      let serverAlready = false;
       try {
         const res = await fetch(`/api/requests?eventSlug=${encodeURIComponent(slug)}&memberEmail=${encodeURIComponent(p.email.toLowerCase())}&groupName=${encodeURIComponent(p.group)}`, { cache: "no-store" });
         if (res.ok) {
@@ -407,6 +419,7 @@ export default function EventScannerPage() {
               body: JSON.stringify({ scannedAt: new Date().toISOString(), payoutReleased: true }),
             });
             serverUpdated = r2.ok;
+            try { const rj = await r2.json(); serverAlready = !!rj?._alreadyScanned; } catch {}
           }
         }
       } catch {}
@@ -448,8 +461,9 @@ export default function EventScannerPage() {
       } catch { display = prettyName(p.email); }
       const amountTxt = typeof p.amount === 'number' ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: p.currency || 'EUR' }).format(p.amount) : undefined;
 
-      if (updated) {
+      if (updated || serverUpdated) {
         window.localStorage.setItem(key, JSON.stringify(arr));
+        try { window.localStorage.setItem(`qrScanned:${slug}:${norm(p.group)}:${p.email.toLowerCase()}`, '1'); } catch {}
       }
       // Notifier en temps réel via SSE broadcast (best effort)
       // Pour éviter les doublons (broadcast + patch), on diffuse seulement si le serveur n'a pas émis d'update
@@ -471,7 +485,7 @@ export default function EventScannerPage() {
           });
         } catch {}
       }
-      return { ok: updated || serverUpdated, display, amountTxt, serverUpdated };
+      return { ok: (updated || serverUpdated) && !serverAlready, display, amountTxt, serverUpdated, alreadyScanned: serverAlready };
     } catch (e) {
       setError("Erreur lors de la mise à jour");
   return { ok: false, display: prettyName(p.email), amountTxt: undefined, serverUpdated: false };

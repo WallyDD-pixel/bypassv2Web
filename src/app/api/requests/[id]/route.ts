@@ -15,7 +15,7 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
     // Récupérer l'état précédent pour détecter un changement de statut
     const prev = await prisma.joinRequest.findUnique({ where: { id } });
     if (!prev) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    const updated = await prisma.joinRequest.update({
+  const updated = await prisma.joinRequest.update({
       where: { id },
       data: {
         status: status || undefined,
@@ -23,6 +23,7 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
         payoutReleased: payoutReleased != null ? Boolean(payoutReleased) : undefined,
       },
     });
+  const alreadyScanned = !!prev.scannedAt || !!updated.scannedAt;
     const justAccepted = prev.status !== "accepted" && updated.status === "accepted";
   // Si la demande vient d'être acceptée (changement de statut), garantir la conversation et l'adhésion du membre
   if (justAccepted) {
@@ -84,7 +85,7 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
         payoutReleased: updated.payoutReleased ?? null,
       });
     } catch {}
-    return NextResponse.json(updated);
+  return NextResponse.json({ ...updated, _alreadyScanned: alreadyScanned });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message || "Failed" }, { status: 500 });
   }
