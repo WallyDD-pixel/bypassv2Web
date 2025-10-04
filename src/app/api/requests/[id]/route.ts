@@ -69,7 +69,7 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
         await sendPushToUser(updated.memberEmail, {
           title: "Votre demande a été acceptée",
           body: `${updated.groupName} — ${updated.eventSlug}`,
-          url: `/scan`,
+          url: `/qr/${updated.eventSlug}/${encodeURIComponent(updated.groupName)}`,
         });
       } catch {}
       // Email de notification à l’organisatrice du groupe (best-effort)

@@ -141,7 +141,7 @@ export default function InAppNotifications() {
         show({
           title: "Demande acceptée",
           message: p.groupName ? `Vous êtes accepté dans ${p.groupName}` : "Votre demande a été acceptée",
-          href: p.eventSlug ? `/scan/${p.eventSlug}` : "/scan",
+          href: p.eventSlug && p.groupName ? `/qr/${p.eventSlug}/${encodeURIComponent(p.groupName)}` : "/qr",
           variant: "success",
         });
       }
@@ -153,7 +153,7 @@ export default function InAppNotifications() {
   return (
     <NotificationsContext.Provider value={ctx}>
       {/* Conteneur des toasts en haut */}
-      <div className="pointer-events-none fixed left-1/2 top-3 z-50 -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
+  <div className="pointer-events-none fixed left-1/2 top-3 z-[1000] -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
         {items.map((n) => (
           <div
             key={n.id}
