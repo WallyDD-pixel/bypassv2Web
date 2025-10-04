@@ -47,9 +47,16 @@ export default function LoginPage() {
           router.replace("/?logged=1");
           return;
         }
+        // S'il existe mais profil incomplet (pas de genre) -> autoriser la complétion
+        if (serverUser && !serverUser.gender) {
+          const name = serverUser.name || email.split("@")[0].replace(/\W+/g, " ").trim() || "Utilisateur";
+          localStorage.setItem("auth:pendingUser", JSON.stringify({ name, email: emailLower }));
+          router.replace("/onboarding");
+          return;
+        }
       }
     } catch {}
-    // 2) Sinon, vérifier le cache local
+    // 2) Sinon, vérifier le cache local (retour utilisateur existant sur cet appareil)
     try {
       const raw = localStorage.getItem(`auth:users:${emailLower}`);
       if (raw) {
@@ -62,10 +69,8 @@ export default function LoginPage() {
         }
       }
     } catch {}
-    // Sinon, passer par l'onboarding pour définir le genre et la photo
-    const name = email.split("@")[0].replace(/\W+/g, " ").trim() || "Utilisateur";
-    localStorage.setItem("auth:pendingUser", JSON.stringify({ name, email }));
-    router.replace("/onboarding");
+    // 3) Compte introuvable: ne pas créer; afficher une erreur et inviter à s'inscrire
+    setError("Compte introuvable. Veuillez créer un compte.");
   };
 
   const signWith = async (provider: "google" | "apple") => {
@@ -95,6 +100,11 @@ export default function LoginPage() {
           router.replace("/?logged=1");
           return;
         }
+        if (serverUser && !serverUser.gender) {
+          localStorage.setItem("auth:pendingUser", JSON.stringify({ name: serverUser.name || name, email: emailLower }));
+          router.replace("/onboarding");
+          return;
+        }
       }
     } catch {}
     // 2) Fallback: cache local
@@ -110,9 +120,8 @@ export default function LoginPage() {
         }
       }
     } catch {}
-    // Social demo: si pas de profil connu, passer par l'onboarding
-    localStorage.setItem("auth:pendingUser", JSON.stringify({ name, email }));
-    router.replace("/onboarding");
+    // 3) Compte introuvable: ne pas créer automatiquement
+    setError("Compte introuvable pour ce fournisseur. Veuillez créer un compte.");
   };
 
   if (loading) return <ProfileSkeleton />;

@@ -56,19 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = () => {
     localStorage.setItem("auth:logged", "1");
-    // Seed a demo user if none exists
-    const existing = localStorage.getItem("auth:user");
-    if (!existing) {
-      const demo: User = {
-        name: "Utilisateur",
-        email: "user@example.com",
-        avatarUrl: undefined,
-  balanceCents: 12345,
-  pendingBalanceCents: 2500,
-      };
-      localStorage.setItem("auth:user", JSON.stringify(demo));
-  setAuthState((s) => ({ ...s, user: demo }));
-    }
+  // Ne pas créer automatiquement d'utilisateur démo ici
   // Cookies côté client pour vérif serveur
   try {
     const raw = localStorage.getItem("auth:user");
