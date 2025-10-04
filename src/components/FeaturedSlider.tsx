@@ -84,7 +84,7 @@ export default function FeaturedSlider({ items, intervalMs = 4500 }: FeaturedSli
     <section className="relative w-full max-w-5xl mx-auto select-none" role="region" aria-label="Événements à la une">
       <div
         ref={containerRef}
-        className="relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.18)] touch-pan-y"
+        className="relative overflow-hidden rounded-3xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.18)] touch-pan-y"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -107,7 +107,7 @@ export default function FeaturedSlider({ items, intervalMs = 4500 }: FeaturedSli
               <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/30 to-transparent pointer-events-none" />
               {/* Info glass card */}
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 flex items-end">
-                <div className="backdrop-blur-2xl bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl p-4 sm:p-6 max-w-[88%]">
+                <div className="backdrop-blur-2xl bg-white/5 border border-white/20 rounded-2xl p-4 sm:p-6 max-w-[88%]">
                   <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow mb-1">{item.title}</h3>
                   <p className="text-white/85 text-xs sm:text-sm">{item.date} • {item.location}</p>
                 </div>

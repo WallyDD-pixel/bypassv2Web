@@ -142,13 +142,13 @@ export default function Home() {
           </div>
           {/* Cues de confiance */}
           <ul className="mt-4 flex flex-wrap gap-2 text-xs text-white/80">
-            <li className="inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/5 px-2.5 py-1 backdrop-blur">
+            <li className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 backdrop-blur">
               <span>🔒</span> Paiement sécurisé
             </li>
-            <li className="inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/5 px-2.5 py-1 backdrop-blur">
+            <li className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 backdrop-blur">
               <span>⚡</span> Rapide et simple
             </li>
-            <li className="inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/5 px-2.5 py-1 backdrop-blur">
+            <li className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 backdrop-blur">
               <span>💬</span> Ambiance bienveillante
             </li>
           </ul>

@@ -218,7 +218,7 @@ export default function ExplorePage() {
                 <div className="text-sm text-slate-600 dark:text-slate-300">
                   {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                 </div>
-                <div className="font-bold text-slate-900 dark:text-white truncate">{e.title}</div>
+                <div className="font-bold text-white truncate">{e.title}</div>
                 <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{e.venue}, {e.city}</div>
               </div>
                   <PillLink href={`/events/${eventSlug(e)}/requests`} size="sm" className="shrink-0">Voir</PillLink>

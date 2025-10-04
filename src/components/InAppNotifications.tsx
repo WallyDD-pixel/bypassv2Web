@@ -187,7 +187,7 @@ export default function InAppNotifications() {
                 ? "bg-gradient-to-br from-amber-500/25 to-amber-600/25 border-white/10 text-white"
                 : n.variant === "error"
                 ? "bg-gradient-to-br from-rose-500/25 to-rose-600/25 border-white/10 text-white"
-                : "bg-white/65 dark:bg-white/5 border-white/40 dark:border-white/15 text-slate-900 dark:text-white",
+                : "bg-white/5 border-white/40 dark:border-white/15 text-white",
               // Ombres douces comme la TopNav
               "shadow-[0_10px_30px_rgba(31,38,135,0.18)]",
               // Animation
@@ -209,7 +209,7 @@ export default function InAppNotifications() {
                       ? "bg-amber-400/20 text-amber-200"
                       : n.variant === "error"
                       ? "bg-rose-400/20 text-rose-200"
-                      : "bg-white/50 dark:bg-white/10 text-slate-900/70 dark:text-white/80",
+                      : "bg-white/10 text-slate-900/70 dark:text-white/80",
                   ].join(" ")}>
                     •
                   </span>

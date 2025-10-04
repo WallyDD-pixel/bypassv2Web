@@ -120,7 +120,7 @@ export default function BottomNav() {
           aria-hidden
           className={`flex items-center justify-center w-10 h-10 transition-colors rounded-xl border ${
             active
-              ? "text-slate-900 dark:text-white opacity-100 bg-white/80 dark:bg-white/10 border-white/60 dark:border-white/10 shadow-sm"
+              ? "text-white opacity-100 bg-white/10 border-white/60 dark:border-white/10 shadow-sm"
               : "text-slate-600 dark:text-slate-300 opacity-75 hover:opacity-100 bg-transparent border-transparent"
           }`}
         >
@@ -143,7 +143,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed left-1/2 -translate-x-1/2 z-50 w-[min(560px,calc(100%-2rem))] md:hidden" style={{ bottom: "max(8px, env(safe-area-inset-bottom, 0px) + 4px)" }}>
-      <div className="relative backdrop-blur-xl bg-white/65 dark:bg-white/5 border border-white/50 dark:border-white/15 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl px-4 py-2 text-slate-900 dark:text-white">
+      <div className="relative backdrop-blur-xl bg-white/5 border border-white/50 dark:border-white/15 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl px-4 py-2 text-white">
         {/* Grille stable: 2 colonnes gauche, 1 vide pour la bulle Scan, 3 à droite */}
         <div className="grid grid-cols-6 items-center gap-x-6">
           <div className="col-span-2 flex items-center justify-evenly gap-6 pr-3">

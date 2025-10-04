@@ -169,7 +169,7 @@ export default function MyRequestsPage() {
   if (loading || reqLoading) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-8">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 p-6 animate-pulse h-40" />
+        <div className="rounded-2xl border border-white/15 bg-white/5 p-6 animate-pulse h-40" />
       </main>
     );
   }
@@ -179,14 +179,14 @@ export default function MyRequestsPage() {
   <h1 className="text-xl sm:text-2xl font-extrabold text-white mb-4">Mes demandes</h1>
 
       {!isAuthenticated && !loading && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/5">
           <p className="text-sm text-white/80">Connectez-vous pour voir vos demandes.</p>
-          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-slate-900 dark:text-white underline">Se connecter</Link>
+          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-white underline">Se connecter</Link>
         </div>
       )}
 
       {isAuthenticated && items.length === 0 && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/5 text-slate-700 dark:text-slate-300">
           Aucune demande envoyée pour le moment.
         </div>
       )}
@@ -194,7 +194,7 @@ export default function MyRequestsPage() {
       {isAuthenticated && items.length > 0 && (
         <ul className="space-y-3">
       {items.map(({ event, groupName, amount, currency, status, createdAt, method, ownerAvatar }, idx) => (
-            <li key={`${eventSlug(event)}:${groupName}:${idx}`} className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur p-4 flex items-center gap-4">
+            <li key={`${eventSlug(event)}:${groupName}:${idx}`} className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-4 flex items-center gap-4">
         <div className="relative w-16 h-16 shrink-0">
           <img
             src={event.imageUrl}
@@ -223,7 +223,7 @@ export default function MyRequestsPage() {
         </div>
               <div className="flex-1 min-w-0">
                 <div className="text-sm text-slate-600 dark:text-slate-300 truncate">{new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(event.startAt))}</div>
-                <Link href={`/events/${eventSlug(event)}`} className="block font-bold text-slate-900 dark:text-white truncate">{event.title}</Link>
+                <Link href={`/events/${eventSlug(event)}`} className="block font-bold text-white truncate">{event.title}</Link>
                 <div className="text-sm text-slate-700 dark:text-slate-300 truncate">Groupe demandé: <span className="font-semibold">{groupName}</span></div>
                 <div className="mt-1 text-[13px] text-slate-600 dark:text-slate-400 flex items-center gap-2">
                   <span>

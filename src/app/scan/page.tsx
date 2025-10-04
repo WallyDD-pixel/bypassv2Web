@@ -253,7 +253,7 @@ export default function ScanPage() {
                       <div className="text-sm text-slate-600 dark:text-slate-300">
                         {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                       </div>
-                      <div className="font-bold text-slate-900 dark:text-white truncate">{e.title}</div>
+                      <div className="font-bold text-white truncate">{e.title}</div>
                       <div className="text-sm text-slate-700 dark:text-slate-300 truncate flex items-center gap-2">
                         <span>Groupe: {a.group}</span>
                         {a.scanned ? (
@@ -301,7 +301,7 @@ export default function ScanPage() {
                       <div className="text-sm text-slate-600 dark:text-slate-300">
                         {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                       </div>
-                      <div className="font-bold text-slate-900 dark:text-white truncate">{e.title}</div>
+                      <div className="font-bold text-white truncate">{e.title}</div>
                       <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{e.venue}, {e.city}</div>
                     </div>
                     <PillLink href={`/scan/${slug}`} size="sm" className="shrink-0" loading={navLoading === `scan:${slug}`} onClick={() => setNavLoading(`scan:${slug}`)}>Scanner</PillLink>

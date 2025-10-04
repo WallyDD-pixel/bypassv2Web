@@ -42,14 +42,14 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
       href={`/events/${slug}`}
       aria-label={`Voir l’événement ${title}`}
       title={title}
-        className="group relative rounded-2xl overflow-hidden max-w-[520px] w-full m-4 flex flex-col border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/5 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.14)] transform-gpu transition-all duration-300 ease-[cubic-bezier(.22,.61,.36,1)] hover:-translate-y-1 hover:shadow-[0_16px_60px_rgba(0,0,0,0.25)] hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
+        className="group relative rounded-2xl overflow-hidden max-w-[520px] w-full m-4 flex flex-col border border-white/15 bg-white/5 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.14)] transform-gpu transition-all duration-300 ease-[cubic-bezier(.22,.61,.36,1)] hover:-translate-y-1 hover:shadow-[0_16px_60px_rgba(0,0,0,0.25)] hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
       >
       {/* inner highlight for depth */}
       <div className="pointer-events-none absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]" />
       <div className="relative">
         <img src={imageUrl} alt={title} className="w-full h-[200px] object-cover transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.03]" />
         {/* Date badge */}
-        <div className="absolute top-3 left-3 backdrop-blur-2xl bg-white/20 dark:bg-black/30 border border-white/40 dark:border-white/20 text-white rounded-xl px-3 py-2 leading-none shadow">
+        <div className="absolute top-3 left-3 backdrop-blur-2xl bg-black/30 border border-white/40 dark:border-white/20 text-white rounded-xl px-3 py-2 leading-none shadow">
           <div className="flex items-baseline gap-1">
             <span className="text-2xl font-extrabold drop-shadow">{dayNum}</span>
             <span className="text-xs font-semibold tracking-wide">{month}</span>
