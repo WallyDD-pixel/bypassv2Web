@@ -342,17 +342,17 @@ export async function sendOwnerScannedEmail(params: {
   const amount = typeof params.amountCents === "number" && params.amountCents >= 0
     ? `${(params.amountCents / 100).toFixed(2)} ${params.currency || "EUR"}`
     : undefined;
-  const subject = `Scan confirmé — ${params.groupName} — ${title}`;
+  const subject = `QR scanné — ${params.groupName} — ${title}`;
   const plain = [
-    `Vous venez de scanner ${who}.`,
-    amount ? `Montant crédité: ${amount}` : `Montant crédité: —`,
+    `Vous avez bien scanné le QR de ${who}.`,
+    amount ? `${amount} est crédité à votre compte.` : `Le montant est crédité à votre compte.`,
   ].join("\n");
   const html = renderBrandedEmail({
-    preheader: `Scan confirmé — ${who}`,
-    heading: "Scan réussi",
+    preheader: `QR scanné — ${who}`,
+    heading: "QR scanné",
     paragraphs: [
-      `Vous venez de scanner <strong>${escapeHtml(who)}</strong>.`,
-      amount ? `Montant crédité: <strong>${escapeHtml(amount)}</strong>` : `Montant crédité: —`,
+      `Vous avez bien scanné le QR de <strong>${escapeHtml(who)}</strong>.`,
+      amount ? `<strong>${escapeHtml(amount)}</strong> est crédité à votre compte.` : `Le montant est crédité à votre compte.`,
     ],
     accent: "#10b981",
     cta: { label: "Voir mes transactions", url: `${getAppUrl()}/profile/transactions` },

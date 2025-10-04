@@ -1,7 +1,7 @@
 export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { emitJoinRequestUpdated, emitMessageCreated } from "@/lib/events";
+import { emitJoinRequestUpdated } from "@/lib/events";
 import { sendJoinAcceptedEmail, sendOwnerNotifiedAcceptedEmail } from "@/lib/email";
 import { sendPushToUser } from "@/lib/webpush";
 
@@ -12,6 +12,9 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
   try {
     const body = await _req.json();
     const { status, scannedAt, payoutReleased } = body || {};
+    // Récupérer l'état précédent pour détecter un changement de statut
+    const prev = await prisma.joinRequest.findUnique({ where: { id } });
+    if (!prev) return NextResponse.json({ error: "Not found" }, { status: 404 });
     const updated = await prisma.joinRequest.update({
       where: { id },
       data: {
@@ -20,9 +23,9 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
         payoutReleased: payoutReleased != null ? Boolean(payoutReleased) : undefined,
       },
     });
-
-  // Si la demande est acceptée, garantir la conversation et l'adhésion du membre
-  if ((status || updated.status) === "accepted") {
+    const justAccepted = prev.status !== "accepted" && updated.status === "accepted";
+  // Si la demande vient d'être acceptée (changement de statut), garantir la conversation et l'adhésion du membre
+  if (justAccepted) {
       try {
         // Assure l'existence de la conversation (eventSlug + groupName)
         const conv = await prisma.conversation.upsert({
@@ -37,27 +40,6 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
           update: {},
           create: { conversationId: conv.id, userEmail: updated.memberEmail.toLowerCase() },
         });
-
-        // Crée un message de bienvenue dans la conversation
-        try {
-          const content = "a rejoint le groupe";
-          const createdMsg = await prisma.message.create({
-            data: {
-              conversationId: conv.id,
-              senderEmail: updated.memberEmail.toLowerCase(),
-              content,
-            },
-          });
-          try {
-            emitMessageCreated({
-              id: createdMsg.id,
-              conversationId: createdMsg.conversationId,
-              senderEmail: createdMsg.senderEmail,
-              content: createdMsg.content,
-              createdAt: createdMsg.createdAt.toISOString(),
-            });
-          } catch {}
-        } catch {}
       } catch {}
       // Email de notification au membre (best-effort)
       try {
