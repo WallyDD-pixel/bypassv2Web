@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
       const conversationId = Number(searchParams.get("conversationId") || 1);
       const sender = searchParams.get("senderEmail") || memberEmail;
       const senderName = searchParams.get("senderName") || undefined;
-      const content = searchParams.get("content") || "Salut ! Ceci est un message de test.";
+      const content = searchParams.get("content") || "Salut ! Ceci est un message de testd.";
       const r = await sendNewMessageEmail({ to, eventSlug: slug, groupName, conversationId, senderEmail: sender, senderName, content });
       return NextResponse.json({ ok: r.ok, mode, to, eventSlug: slug, groupName, conversationId, senderEmail: sender, senderName });
     } else if (mode === "join-requested") {
