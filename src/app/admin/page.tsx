@@ -69,6 +69,10 @@ export default async function AdminDashboard() {
       <section className="mb-6">
         <div className="flex gap-3 flex-wrap">
           <Link href="/admin/users" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Utilisateurs</Link>
+          <Link href="/admin/groups" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Groupes</Link>
+          <Link href="/admin/requests" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Demandes</Link>
+          <Link href="/admin/conversations" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Conversations</Link>
+          <Link href="/admin/messages" className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold">Messages</Link>
         </div>
       </section>
 

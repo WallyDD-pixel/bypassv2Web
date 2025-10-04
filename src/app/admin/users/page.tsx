@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { createUser, deleteUser } from "./actions";
+import ConfirmButton from "@/components/admin/ConfirmButton";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,7 @@ export default async function AdminUsersPage() {
                   <td className="py-2 pr-3">
                     <form action={deleteUser}>
                       <input type="hidden" name="id" value={u.id} />
-                      <button className="px-3 py-1 rounded-lg bg-red-600 text-white">Supprimer</button>
+                      <ConfirmButton className="px-3 py-1 rounded-lg bg-red-600 text-white">Supprimer</ConfirmButton>
                     </form>
                   </td>
                 </tr>
