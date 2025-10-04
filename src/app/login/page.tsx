@@ -74,13 +74,13 @@ export default function LoginPage() {
           <span className="text-2xl">🔐</span>
         </div>
   <h1 className="mt-3 text-2xl sm:text-3xl font-extrabold text-white">Connexion</h1>
-        <p className="text-slate-600 dark:text-slate-300">Accède à tes groupes et ton solde</p>
+        <p className="text-slate-600 à tes groupes et ton solde</p>
       </div>
   <GlassCard className="shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
 
         <form onSubmit={submit} className="space-y-4">
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Email</span>
+            <span className="text-sm text-slate-700
             <input
               type="email"
               value={email}
@@ -90,7 +90,7 @@ export default function LoginPage() {
             />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Mot de passe</span>
+            <span className="text-sm text-slate-700 de passe</span>
             <div className="mt-1 flex rounded-xl border border-white/15 bg-white/5 overflow-hidden">
               <input
                 type={showPwd ? "text" : "password"}
@@ -99,7 +99,7 @@ export default function LoginPage() {
                 required
                 className="flex-1 px-3 py-2 bg-transparent outline-none"
               />
-              <button type="button" onClick={() => setShowPwd((v) => !v)} className="px-3 text-sm text-slate-600 dark:text-slate-300 hover:opacity-80">
+              <button type="button" onClick={() => setShowPwd((v) => !v)} className="px-3 text-sm text-slate-600 hover:opacity-80">
                 {showPwd ? "Masquer" : "Afficher"}
               </button>
             </div>
@@ -109,13 +109,13 @@ export default function LoginPage() {
         </form>
 
   <div className="my-5 flex items-center gap-3 text-xs text-slate-500">
-          <div className="h-px flex-1 bg-slate-300/60 dark:bg-white/15" />
+          <div className="h-px flex-1 bg-slate-300/60 />
           <span>ou</span>
-          <div className="h-px flex-1 bg-slate-300/60 dark:bg-white/15" />
+          <div className="h-px flex-1 bg-slate-300/60 />
         </div>
 
         <div className="grid grid-cols-1 gap-3">
-          <PillButton onClick={() => signWith("google")} className="w-full border border-black/10 hover:bg-white dark:text-slate-900" variant="outline">
+          <PillButton onClick={() => signWith("google")} className="w-full border border-white/15 hover:bg-white variant="outline">
             Continuer avec Google (démo)
           </PillButton>
           <PillButton onClick={() => signWith("apple")} className="w-full bg-black text-white hover:opacity-90">
@@ -123,7 +123,7 @@ export default function LoginPage() {
           </PillButton>
         </div>
 
-  <div className="mt-6 text-sm text-slate-700 dark:text-slate-300 text-center">
+  <div className="mt-6 text-sm text-slate-700 text-center">
           Pas de compte ?
           <Link href="/register" className="ml-1 font-semibold underline">Créer un compte</Link>
         </div>

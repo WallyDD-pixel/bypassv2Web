@@ -30,7 +30,7 @@ export default function MobileHeader({ title }: { title?: string }) {
               type="button"
               onClick={() => router.back()}
               aria-label="Retour"
-              className="w-10 h-10 flex items-center justify-center rounded-xl text-white hover:bg-black/5 dark:hover:bg-white/10"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-white hover:bg-black/5
             >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden className="w-6 h-6">
                 <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

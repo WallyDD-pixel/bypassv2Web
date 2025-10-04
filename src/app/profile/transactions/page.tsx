@@ -28,8 +28,8 @@ export default function TransactionsPage() {
       <main className="max-w-md mx-auto px-4 py-16">
         <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6">
           <h1 className="text-xl font-extrabold text-white mb-2">Transactions</h1>
-          <p className="text-slate-600 dark:text-slate-300">Veuillez vous connecter pour voir l'historique.</p>
-          <Link href="/login" className="mt-4 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900">Se connecter</Link>
+          <p className="text-slate-600 vous connecter pour voir l'historique.</p>
+          <Link href="/login" className="mt-4 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white connecter</Link>
         </div>
       </main>
     );
@@ -38,22 +38,22 @@ export default function TransactionsPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
       <div className="mb-4 flex items-center gap-2">
-        <Link href="/profile" className="text-sm underline text-slate-700 dark:text-slate-300">← Retour</Link>
+        <Link href="/profile" className="text-sm underline text-slate-700 Retour</Link>
         <h1 className="text-2xl font-extrabold text-white">Historique des transactions</h1>
       </div>
       <section className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-4">
         {txs.length === 0 ? (
-          <p className="text-slate-600 dark:text-slate-300">Aucune transaction pour l’instant.</p>
+          <p className="text-slate-600 transaction pour l’instant.</p>
         ) : (
-          <ul className="divide-y divide-black/10 dark:divide-white/10">
+          <ul className="divide-y divide-black/10
             {txs.map((t) => (
               <li key={t.id} className="py-3 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-slate-900 text-white dark:bg.white dark:text-slate-900 grid place-items-center text-[11px] font-bold">€</div>
+                <div className="w-9 h-9 rounded-full bg-slate-900 text-white grid place-items-center text-[11px] font-bold">€</div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm text-white truncate">+ {euros(t.amountCents, t.currency)}</div>
-                  <div className="text-[12px] text-slate-600 dark:text-slate-400 truncate">{t.groupName} • {t.memberEmail}</div>
+                  <div className="text-[12px] text-slate-600 truncate">{t.groupName} • {t.memberEmail}</div>
                 </div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">{new Date(t.ts).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</div>
+                <div className="text-[11px] text-slate-500 Date(t.ts).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</div>
               </li>
             ))}
           </ul>

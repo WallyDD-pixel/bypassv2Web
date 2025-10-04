@@ -186,7 +186,7 @@ export default function MyRequestsPage() {
       )}
 
       {isAuthenticated && items.length === 0 && (
-        <div className="rounded-xl border border-white/15 p-4 bg-white/5 text-slate-700 dark:text-slate-300">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/5 text-slate-700
           Aucune demande envoyée pour le moment.
         </div>
       )}
@@ -211,7 +211,7 @@ export default function MyRequestsPage() {
             <img
               src={ownerAvatar}
               alt=""
-              className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full object-cover object-center ring-2 ring-white/90 dark:ring-black/50"
+              className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full object-cover object-center ring-2 ring-white/90
               referrerPolicy="no-referrer"
               onError={(e) => {
                 const t = e.currentTarget as HTMLImageElement;
@@ -222,22 +222,22 @@ export default function MyRequestsPage() {
           )}
         </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-slate-600 dark:text-slate-300 truncate">{new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(event.startAt))}</div>
+                <div className="text-sm text-slate-600 truncate">{new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(event.startAt))}</div>
                 <Link href={`/events/${eventSlug(event)}`} className="block font-bold text-white truncate">{event.title}</Link>
-                <div className="text-sm text-slate-700 dark:text-slate-300 truncate">Groupe demandé: <span className="font-semibold">{groupName}</span></div>
-                <div className="mt-1 text-[13px] text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                <div className="text-sm text-slate-700 truncate">Groupe demandé: <span className="font-semibold">{groupName}</span></div>
+                <div className="mt-1 text-[13px] text-slate-600 flex items-center gap-2">
                   <span>
                     Montant payé: <span className="font-semibold">{typeof amount === 'number' ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: currency || 'EUR' }).format(amount) : '—'}</span>
                     {typeof amount === 'number' && method ? ` • ${method === 'card' ? 'Carte' : 'PayPal'}` : ''}
                   </span>
                   {status === 'accepted' && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-200">Acceptée</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700
                   )}
                   {status === 'refused' && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700 dark:text-rose-200">Refusée</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700
                   )}
                   {(!status || status === 'pending') && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700 dark:text-amber-200">En attente</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700 attente</span>
                   )}
                 </div>
               </div>

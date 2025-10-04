@@ -219,8 +219,8 @@ export default function ProfilePage() {
       <main className="max-w-md mx-auto px-4 py-16">
         <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
           <h1 className="text-xl font-extrabold text-white mb-2">Profil</h1>
-          <p className="text-slate-600 dark:text-slate-300">Veuillez vous connecter pour accéder à votre profil.</p>
-          <Link href="/login" className="mt-4 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow hover:opacity-90 transition">Se connecter</Link>
+          <p className="text-slate-600 vous connecter pour accéder à votre profil.</p>
+          <Link href="/login" className="mt-4 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white shadow hover:opacity-90 transition">Se connecter</Link>
         </div>
       </main>
     );
@@ -248,7 +248,7 @@ export default function ProfilePage() {
             exit={{ opacity: 0, y: -6, filter: "blur(3px)" }}
             className="fixed top-20 left-1/2 -translate-x-1/2 z-[90]"
           >
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-900 dark:text-emerald-200 backdrop-blur px-4 py-2 shadow">
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-900 backdrop-blur px-4 py-2 shadow">
       {toast}
             </div>
           </motion.div>
@@ -257,15 +257,15 @@ export default function ProfilePage() {
       {/* Profile header card centered */}
       <section className="mb-6">
         <div className="mx-auto max-w-md rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)] text-center">
-          <div className="mx-auto w-20 h-20 rounded-full ring-2 ring-white/80 dark:ring-black/40 overflow-hidden flex items-center justify-center bg-gradient-to-br from-slate-300 to-slate-500">
+          <div className="mx-auto w-20 h-20 rounded-full ring-2 ring-white/80 overflow-hidden flex items-center justify-center bg-gradient-to-br from-slate-300 to-slate-500">
             {user?.avatarUrl ? (
               <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-xl font-bold text-slate-800 dark:text-white">{nameInitials}</span>
+              <span className="text-xl font-bold text-slate-800
             )}
           </div>
           <h1 className="mt-4 text-2xl font-extrabold text-white leading-tight">{user?.name ?? "Utilisateur"}</h1>
-          <p className="text-slate-600 dark:text-slate-300 text-sm">Gère tes groupes et tes gains</p>
+          <p className="text-slate-600 text-sm">Gère tes groupes et tes gains</p>
         </div>
       </section>
 
@@ -274,15 +274,15 @@ export default function ProfilePage() {
         <div className="mx-auto max-w-md rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
           <div className="flex items-end justify-between">
             <div>
-              <div className="uppercase text-xs tracking-[0.18em] text-slate-600 dark:text-slate-300">Solde disponible</div>
+              <div className="uppercase text-xs tracking-[0.18em] text-slate-600 disponible</div>
               <div className="text-2xl font-extrabold text-white">{euros(walletCents)}</div>
             </div>
             <div className="text-right">
-              <div className="uppercase text-xs tracking-[0.18em] text-slate-600 dark:text-slate-300">En attente</div>
-              <div className="text-xl font-bold text-slate-900/80 dark:text-white/90">{euros(user?.pendingBalanceCents ?? 0)}</div>
+              <div className="uppercase text-xs tracking-[0.18em] text-slate-600 attente</div>
+              <div className="text-xl font-bold text-slate-900/80 ?? 0)}</div>
             </div>
           </div>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">Le solde en attente sera libéré après validation lors du scan en soirée lorsque les membres se rencontrent en vrai.</p>
+          <p className="mt-3 text-sm text-slate-600 solde en attente sera libéré après validation lors du scan en soirée lorsque les membres se rencontrent en vrai.</p>
         </div>
       </section>
 
@@ -291,24 +291,24 @@ export default function ProfilePage() {
         <div className="mx-auto max-w-md rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-4 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-sm font-extrabold text-white">Dernières transactions</h2>
-            <Link href="/profile/transactions" className="text-xs font-semibold underline text-slate-700 dark:text-slate-300">Voir plus</Link>
+            <Link href="/profile/transactions" className="text-xs font-semibold underline text-slate-700 plus</Link>
           </div>
           {txs.length === 0 ? (
-            <p className="text-sm text-slate-600 dark:text-slate-300">Aucune transaction pour l’instant.</p>
+            <p className="text-sm text-slate-600 transaction pour l’instant.</p>
           ) : (
-            <ul className="divide-y divide-black/10 dark:divide-white/10">
+            <ul className="divide-y divide-black/10
               {txs.map((t) => (
                 <li key={t.id} className="py-2 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 grid place-items-center text-[11px] font-bold">€</div>
+                  <div className="w-9 h-9 rounded-full bg-slate-900 text-white grid place-items-center text-[11px] font-bold">€</div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm text-white truncate">
                       + {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: t.currency || 'EUR' }).format((t.amountCents || 0) / 100)}
                     </div>
-                    <div className="text-[12px] text-slate-600 dark:text-slate-400 truncate">
+                    <div className="text-[12px] text-slate-600 truncate">
                       {t.groupName} • {t.memberEmail}
                     </div>
                   </div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  <div className="text-[11px] text-slate-500
                     {new Date(t.ts).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </li>
@@ -320,10 +320,10 @@ export default function ProfilePage() {
 
       {/* Boutons ordonnés verticalement */}
       <section className="mt-4 max-w-md mx-auto space-y-3">
-        <button className="w-full rounded-xl px-4 py-3 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow hover:opacity-90">
+        <button className="w-full rounded-xl px-4 py-3 text-sm font-semibold bg-slate-900 text-white shadow hover:opacity-90">
           Retirer mes gains
         </button>
-        <button onClick={() => setShowSettings(true)} className="w-full rounded-xl px-4 py-3 text-sm font-semibold bg-white/80 text-slate-900 dark:bg-white/10 dark:text-white border border-white/15 hover:opacity-90">
+        <button onClick={() => setShowSettings(true)} className="w-full rounded-xl px-4 py-3 text-sm font-semibold bg-white/80 text-slate-900 border border-white/15 hover:opacity-90">
           Paramètres
         </button>
       </section>
@@ -342,31 +342,31 @@ export default function ProfilePage() {
           <div className="relative w-full max-w-[640px] rounded-2xl border border-white/15 bg-[#0b0b0b]/90 backdrop-blur-xl shadow-2xl max-h-[85dvh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
               <h3 className="text-lg font-extrabold text-white">Paramètres</h3>
-              <button aria-label="Fermer" onClick={() => setShowSettings(false)} className="rounded-lg px-2 py-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">✕</button>
+              <button aria-label="Fermer" onClick={() => setShowSettings(false)} className="rounded-lg px-2 py-1 text-slate-600 hover:text-slate-900
             </div>
             <div className="p-5 overflow-y-auto">
               <label className="block">
-                <span className="text-sm text-slate-700 dark:text-slate-300">Nom d’utilisateur</span>
+                <span className="text-sm text-slate-700 d’utilisateur</span>
                 <input
                   type="text"
                   value={user?.name ?? ""}
                   disabled
-                  className="mt-1 w-full rounded-xl border border-white/15 bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400 px-3 py-2 outline-none cursor-not-allowed"
+                  className="mt-1 w-full rounded-xl border border-white/15 bg-slate-100 text-slate-500 px-3 py-2 outline-none cursor-not-allowed"
                 />
                 <span className="mt-1 block text-xs text-slate-500">Non modifiable</span>
               </label>
               <label className="block">
-                <span className="text-sm text-slate-700 dark:text-slate-300">Email</span>
+                <span className="text-sm text-slate-700
                 <input
                   type="email"
                   value={user?.email ?? ""}
                   disabled
-                  className="mt-1 w-full rounded-xl border border-white/15 bg-slate-100 text-slate-500 dark:bg.white/10 dark:text-slate-400 px-3 py-2 outline-none cursor-not-allowed"
+                  className="mt-1 w-full rounded-xl border border-white/15 bg-slate-100 text-slate-500 px-3 py-2 outline-none cursor-not-allowed"
                 />
                 <span className="mt-1 block text-xs text-slate-500">Non modifiable</span>
               </label>
               <label className="block mt-4">
-                <span className="text-sm text-slate-700 dark:text-slate-300">Photo de profil</span>
+                <span className="text-sm text-slate-700 de profil</span>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -381,22 +381,22 @@ export default function ProfilePage() {
                   onClick={() => fileInputRef.current?.click()}
                   className={`mt-1 w-full min-h-[140px] rounded-2xl border-2 border-dashed px-4 py-6 text-center transition cursor-pointer flex flex-col items-center justify-center gap-2 ${
                     dragActive
-                      ? "border-slate-900 bg-slate-900/5 dark:border-white dark:bg-white/10"
+                      ? "border-slate-900 bg-slate-900/5
                       : "border-white/20 bg-white/5"
                   }`}
                 >
                   {user?.avatarUrl ? (
-                    <img src={user.avatarUrl} alt="Aperçu" className="w-24 h-24 rounded-full object-cover ring-2 ring-white/80 dark:ring-black/40" />
+                    <img src={user.avatarUrl} alt="Aperçu" className="w-24 h-24 rounded-full object-cover ring-2 ring-white/80 />
                   ) : (
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-200 to-slate-400 ring-2 ring-white/70 dark:ring-black/40" />
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-200 to-slate-400 ring-2 ring-white/70 />
                   )}
-                  <div className="text-sm text-slate-700 dark:text-slate-200 font-semibold">Dépose une image ici</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">ou clique pour choisir un fichier (PNG, JPG)</div>
+                  <div className="text-sm text-slate-700 font-semibold">Dépose une image ici</div>
+                  <div className="text-xs text-slate-500 clique pour choisir un fichier (PNG, JPG)</div>
                 </label>
               </label>
             </div>
             <div className="px-5 py-4 border-t border-white/10 flex justify-end gap-3">
-              <button onClick={() => setShowSettings(false)} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900 dark:bg-white/10 dark:text-white hover:opacity-90">Fermer</button>
+              <button onClick={() => setShowSettings(false)} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900 hover:opacity-90">Fermer</button>
             </div>
           </div>
         </div>

@@ -181,7 +181,7 @@ export default function ExplorePage() {
           ))}
         </ul>
       ) : mine.length === 0 ? (
-  <GlassCard className="p-6 text-slate-700 dark:text-slate-200">
+  <GlassCard className="p-6 text-slate-700
           <p>Vous n’avez encore créé aucun groupe. Créez-en un depuis la page d’un événement.</p>
           <PillLink href="/" className="mt-3">Voir les événements</PillLink>
         </GlassCard>
@@ -208,18 +208,18 @@ export default function ExplorePage() {
                   {n > 0 && (
                     <div
                       aria-label={`${n} demande${n > 1 ? "s" : ""} de rejoindre`}
-                      className="absolute -top-1 -left-1 min-w-5 h-5 px-1.5 rounded-full grid place-items-center text-[11px] font-bold bg-rose-600 text-white ring-2 ring-white/90 dark:ring-black/50"
+                      className="absolute -top-1 -left-1 min-w-5 h-5 px-1.5 rounded-full grid place-items-center text-[11px] font-bold bg-rose-600 text-white ring-2 ring-white/90
                     >
                       {n}
                     </div>
                   )}
                 </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-slate-600 dark:text-slate-300">
+                <div className="text-sm text-slate-600
                   {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                 </div>
                 <div className="font-bold text-white truncate">{e.title}</div>
-                <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{e.venue}, {e.city}</div>
+                <div className="text-sm text-slate-700 truncate">{e.venue}, {e.city}</div>
               </div>
                   <PillLink href={`/events/${eventSlug(e)}/requests`} size="sm" className="shrink-0">Voir</PillLink>
                 </GlassCard>

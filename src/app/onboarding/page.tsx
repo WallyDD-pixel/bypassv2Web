@@ -122,31 +122,31 @@ export default function OnboardingPage() {
       <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
         <form onSubmit={submit} className="space-y-5">
           <fieldset>
-            <legend className="text-sm text-slate-700 dark:text-slate-300 mb-2">Genre</legend>
+            <legend className="text-sm text-slate-700 mb-2">Genre</legend>
             <div className="grid grid-cols-2 gap-3">
-              <button type="button" onClick={() => setGender("male")} className={`rounded-xl px-4 py-3 font-semibold border ${gender === "male" ? "border-slate-900 bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "border-white/15 bg-white/5"}`}>Homme</button>
-              <button type="button" onClick={() => setGender("female")} className={`rounded-xl px-4 py-3 font-semibold border ${gender === "female" ? "border-slate-900 bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "border-white/15 bg-white/5"}`}>Femme</button>
+              <button type="button" onClick={() => setGender("male")} className={`rounded-xl px-4 py-3 font-semibold border ${gender === "male" ? "border-slate-900 bg-slate-900 text-white : "border-white/15 bg-white/5"}`}>Homme</button>
+              <button type="button" onClick={() => setGender("female")} className={`rounded-xl px-4 py-3 font-semibold border ${gender === "female" ? "border-slate-900 bg-slate-900 text-white : "border-white/15 bg-white/5"}`}>Femme</button>
             </div>
           </fieldset>
 
           <div>
-            <label className="text-sm text-slate-700 dark:text-slate-300 mb-2 block">Photo de profil (obligatoire)</label>
+            <label className="text-sm text-slate-700 mb-2 block">Photo de profil (obligatoire)</label>
             <input ref={fileInputRef} type="file" accept="image/*" className="sr-only" onChange={(e) => onSelectFile(e.target.files?.[0] ?? null)} />
             <label onClick={() => fileInputRef.current?.click()} className="block rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-4 cursor-pointer">
               {avatarUrl ? (
                 <div className="flex items-center gap-3">
                   <img src={avatarUrl} alt="Aperçu" className="w-14 h-14 rounded-full object-cover" />
-                  <div className="text-sm text-slate-700 dark:text-slate-300">Changer la photo</div>
+                  <div className="text-sm text-slate-700 la photo</div>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-28 text-slate-600 dark:text-slate-300">Clique pour importer une photo</div>
+                <div className="flex items-center justify-center h-28 text-slate-600 pour importer une photo</div>
               )}
             </label>
           </div>
 
           {error && <div className="text-sm text-red-600">{error}</div>}
 
-          <button type="submit" className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow hover:opacity-90">Terminer</button>
+          <button type="submit" className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white shadow hover:opacity-90">Terminer</button>
         </form>
       </div>
     </main>

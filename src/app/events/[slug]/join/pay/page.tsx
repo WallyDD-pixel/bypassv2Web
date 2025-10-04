@@ -367,26 +367,26 @@ export default function PayJoinPage() {
   return (
     <main className="max-w-md mx-auto px-4 py-10">
       <div className="mb-6 flex items-center gap-3">
-        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 dark:text-white">Paiement</h1>
+        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900
       </div>
 
-  <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)] isolate">
+  <div className="rounded-2xl border border-white/15 bg-white/70 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)] isolate">
         <div className="mb-4">
-          <div className="text-sm text-slate-600 dark:text-slate-300">Vous demandez à rejoindre</div>
-          <div className="text-lg font-bold text-slate-900 dark:text-white">{group.name}</div>
+          <div className="text-sm text-slate-600 demandez à rejoindre</div>
+          <div className="text-lg font-bold text-slate-900
         </div>
 
-        <div className="mb-4 text-sm text-slate-700 dark:text-slate-300">
+        <div className="mb-4 text-sm text-slate-700
           Montant à payer: <span className="font-semibold">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Math.max(0, amount))}</span>
         </div>
 
         {/* Formulaire Carte Bancaire uniquement */}
         {/* Sélecteur méthode */}
-        <div className="mb-4 inline-flex rounded-xl border border-black/10 dark:border-white/15 bg-white/60 dark:bg-white/10 p-1">
+        <div className="mb-4 inline-flex rounded-xl border border-white/15 bg-white/60 p-1">
           <button
             type="button"
             onClick={() => setMethod("card")}
-            className={`px-3 py-1.5 rounded-lg text-sm font-semibold ${method === "card" ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "text-slate-700 dark:text-slate-300"}`}
+            className={`px-3 py-1.5 rounded-lg text-sm font-semibold ${method === "card" ? "bg-slate-900 text-white : "text-slate-700
           >
             Carte bancaire
           </button>
@@ -394,7 +394,7 @@ export default function PayJoinPage() {
             type="button"
             onClick={() => setMethod("paypal")}
             disabled={!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || (Number(amount) || 0) <= 0}
-            className={`ml-1 px-3 py-1.5 rounded-lg text-sm font-semibold ${method === "paypal" ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "text-slate-700 dark:text-slate-300"} ${(!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || (Number(amount) || 0) <= 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`ml-1 px-3 py-1.5 rounded-lg text-sm font-semibold ${method === "paypal" ? "bg-slate-900 text-white : "text-slate-700 ${(!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || (Number(amount) || 0) <= 0) ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             PayPal
           </button>
@@ -404,33 +404,33 @@ export default function PayJoinPage() {
         {method === "card" && (
           <>
             {!hfReady && (
-              <div className="mb-4 flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <div className="mb-4 flex items-center gap-2 text-sm text-slate-700
                 <svg className="animate-spin h-5 w-5 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
                 Veuillez patienter pendant le chargement du paiement sécurisé…
               </div>
             )}
             <form className="mb-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="text-sm font-semibold text-slate-900 dark:text-white mb-2">Paiement par carte bancaire</div>
+              <div className="text-sm font-semibold text-slate-900 mb-2">Paiement par carte bancaire</div>
               <div className="grid gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Nom sur la carte</label>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Nom sur la carte</label>
                   <input
                     type="text"
                     autoComplete="cc-name"
                     value={cardName}
                     onChange={(e) => setCardName(e.target.value)}
                     placeholder="Prénom Nom"
-                    className="w-full rounded-xl border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 px-3 py-2 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-slate-900/10"
+                    className="w-full rounded-xl border border-white/15 bg-white/80 px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-slate-900/10"
                   />
                   {!isValidName(cardName) && cardName !== "" && (
                     <div className="mt-1 text-[12px] text-rose-600">Nom trop court.</div>
                   )}
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Numéro de carte</label>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Numéro de carte</label>
                   <div
                     id="pp-card-number"
-                    className="relative w-full h-11 rounded-lg border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 px-3 py-2 text-sm cursor-text z-10"
+                    className="relative w-full h-11 rounded-lg border border-white/15 bg-white/80 px-3 py-2 text-sm cursor-text z-10"
                     style={{ pointerEvents: "auto" }}
                     onClick={() => {
                       try { hostedFieldsRef.current?.focus?.('number'); } catch {}
@@ -439,10 +439,10 @@ export default function PayJoinPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Expiration (MM/YY)</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Expiration (MM/YY)</label>
                     <div
                       id="pp-card-expiration"
-                      className="relative w-full h-11 rounded-lg border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 px-3 py-2 text-sm cursor-text z-10"
+                      className="relative w-full h-11 rounded-lg border border-white/15 bg-white/80 px-3 py-2 text-sm cursor-text z-10"
                       style={{ pointerEvents: "auto" }}
                       onClick={() => {
                         try { hostedFieldsRef.current?.focus?.('expirationDate'); } catch {}
@@ -450,10 +450,10 @@ export default function PayJoinPage() {
                     ></div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">CVC</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">CVC</label>
                     <div
                       id="pp-card-cvv"
-                      className="relative w-full h-11 rounded-lg border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 px-3 py-2 text-sm cursor-text z-10"
+                      className="relative w-full h-11 rounded-lg border border-white/15 bg-white/80 px-3 py-2 text-sm cursor-text z-10"
                       style={{ pointerEvents: "auto" }}
                       onClick={() => {
                         try { hostedFieldsRef.current?.focus?.('cvv'); } catch {}
@@ -465,7 +465,7 @@ export default function PayJoinPage() {
                   <div className="text-[12px] text-slate-500">Initialisation du paiement sécurisé…</div>
                 )}
                 {!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && (
-                  <div className="text-[12px] text-amber-700 dark:text-amber-300">Configurez NEXT_PUBLIC_PAYPAL_CLIENT_ID pour activer le paiement carte.</div>
+                  <div className="text-[12px] text-amber-700 NEXT_PUBLIC_PAYPAL_CLIENT_ID pour activer le paiement carte.</div>
                 )}
               </div>
               {/* Force iframes to fill containers so clicks register */}
@@ -484,17 +484,17 @@ export default function PayJoinPage() {
         {method === "paypal" && (
           <div className="mb-6">
             {!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && (
-              <div className="mb-3 text-[12px] text-amber-700 dark:text-amber-300">Configurez NEXT_PUBLIC_PAYPAL_CLIENT_ID pour activer PayPal.</div>
+              <div className="mb-3 text-[12px] text-amber-700 NEXT_PUBLIC_PAYPAL_CLIENT_ID pour activer PayPal.</div>
             )}
             {(Number(amount) || 0) <= 0 && (
-              <div className="mb-3 text-[12px] text-amber-700 dark:text-amber-300">Le montant doit être supérieur à 0 pour utiliser PayPal.</div>
+              <div className="mb-3 text-[12px] text-amber-700 montant doit être supérieur à 0 pour utiliser PayPal.</div>
             )}
             <div ref={paypalContainerRef} />
           </div>
         )}
 
         <div className="flex items-center justify-between gap-3">
-          <button onClick={() => router.back()} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900 dark:bg-white/10 dark:text-white">Annuler</button>
+          <button onClick={() => router.back()} className="rounded-xl px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-900
       {method === "card" ? (
         <button
           disabled={paying || !isValidName(cardName) || !hfReady}
@@ -537,7 +537,7 @@ export default function PayJoinPage() {
       {statusMsg !== "idle" && (
         <div className="mt-4 text-center text-sm">
           {statusMsg === "processing" && (
-            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-200 text-slate-800 dark:bg-white/10 dark:text-white">
+            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-200 text-slate-800
               <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" strokeOpacity="0.2" strokeWidth="4"/><path d="M12 2a10 10 0 000 20" stroke="currentColor" strokeWidth="4"/></svg>
               Traitement du paiement…
             </div>

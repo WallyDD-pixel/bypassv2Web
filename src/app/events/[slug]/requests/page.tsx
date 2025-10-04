@@ -260,14 +260,14 @@ export default function EventRequestsPage() {
 
   const renderLoading = (
     <main className="max-w-3xl mx-auto px-4 py-8">
-      <div className="rounded-2xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 animate-pulse h-40" />
+      <div className="rounded-2xl border border-white/15 p-4 bg-white/60 animate-pulse h-40" />
     </main>
   );
 
   if (!event) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-8">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5">Événement introuvable.</div>
+        <div className="rounded-2xl border border-white/15 p-4 bg-white/60 introuvable.</div>
       </main>
     );
   }
@@ -278,32 +278,32 @@ export default function EventRequestsPage() {
     <main className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-4 flex items-center gap-3">
         {/* Desktop title only; back on mobile via MobileHeader */}
-        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 dark:text-white">Demandes de rejoint</h1>
-        <span className="ml-auto inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+        <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 de rejoint</h1>
+        <span className="ml-auto inline-flex items-center gap-2 text-sm text-slate-600
           <img src={event.imageUrl} alt="" className="w-6 h-6 rounded object-cover" />
           {event.title}
         </span>
       </div>
 
       {!isAuthenticated && !loading && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5">
-          <p className="text-sm text-slate-700 dark:text-slate-300">Connectez-vous pour voir les demandes.</p>
-          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-slate-900 dark:text-white underline">Se connecter</Link>
+        <div className="rounded-xl border border-white/15 p-4 bg-white/60
+          <p className="text-sm text-slate-700 pour voir les demandes.</p>
+          <Link href="/login" className="inline-block mt-2 text-sm font-semibold text-slate-900 underline">Se connecter</Link>
         </div>
       )}
 
       {isAuthenticated && (ownedLoading ? (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 animate-pulse h-24" />
+        <div className="rounded-xl border border-white/15 p-4 bg-white/60 animate-pulse h-24" />
       ) : ownedGroups.length === 0) && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/60 text-slate-700
           Vous n’avez créé aucun groupe pour cet événement.
         </div>
       )}
 
       {isAuthenticated && ownedGroups.length > 0 && (reqLoading ? (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 animate-pulse h-24" />
+        <div className="rounded-xl border border-white/15 p-4 bg-white/60 animate-pulse h-24" />
       ) : total === 0) && (
-        <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+        <div className="rounded-xl border border-white/15 p-4 bg-white/60 text-slate-700
           Aucune demande reçue pour l’instant.
         </div>
       )}
@@ -314,15 +314,15 @@ export default function EventRequestsPage() {
             const list = requestsByGroup[g.name] || [];
             if (!list.length) return null;
             return (
-              <section key={g.name} className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-4">
+              <section key={g.name} className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-4">
                 <div className="flex items-center gap-3 mb-3">
                   <img src={g.avatarUrl || "/window.svg"} alt="" className="w-10 h-10 rounded-full object-cover object-center" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-bold text-slate-900 dark:text-white truncate">{g.name}</div>
-                    <div className="text-sm text-slate-600 dark:text-slate-300">{list.length} demande{list.length > 1 ? "s" : ""}</div>
+                    <div className="font-bold text-slate-900 truncate">{g.name}</div>
+                    <div className="text-sm text-slate-600 demande{list.length > 1 ? "s" : ""}</div>
                   </div>
                 </div>
-                <ul className="divide-y divide-black/10 dark:divide-white/10">
+                <ul className="divide-y divide-black/10
                   {list.map((r, i) => {
                     const amount = r.amount;
                     const currency = r.currency;
@@ -334,33 +334,33 @@ export default function EventRequestsPage() {
                         key={i}
                         className="py-3 flex items-center gap-3"
                       >
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-300 to-slate-500 dark:from-white/20 dark:to-white/10 grid place-items-center text-[11px] font-bold text-slate-800 dark:text-white">
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-300 to-slate-500 grid place-items-center text-[11px] font-bold text-slate-800
                           {g.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm text-slate-800 dark:text-slate-200 truncate">Demandeur•euse</div>
-                          <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                          <div className="text-sm text-slate-800 truncate">Demandeur•euse</div>
+                          <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-600
                             <span>
                               {typeof amount === "number" ? new Intl.NumberFormat("fr-FR", { style: "currency", currency: currency || "EUR" }).format(amount) : "—"}
                               {method ? ` • ${method === "card" ? "Carte" : "PayPal"}` : ""}
                             </span>
                             {scanned && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-sky-600/30 bg-sky-500/15 text-sky-700 dark:text-sky-200 text-[11px]">Scanné</span>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-sky-600/30 bg-sky-500/15 text-sky-700 text-[11px]">Scanné</span>
                             )}
                             {status === "accepted" && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-200 text-[11px]">Acceptée</span>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-emerald-600/30 bg-emerald-500/15 text-emerald-700 text-[11px]">Acceptée</span>
                             )}
                             {status === "refused" && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700 dark:text-rose-200 text-[11px]">Refusée</span>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-rose-600/30 bg-rose-500/15 text-rose-700 text-[11px]">Refusée</span>
                             )}
                             {(!status || status === "pending") && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700 dark:text-amber-200 text-[11px]">En attente</span>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border border-amber-600/30 bg-amber-500/15 text-amber-700 text-[11px]">En attente</span>
                             )}
                           </div>
                         </div>
             {status !== "accepted" && (
                           <button
-                            className="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/10 hover:bg-white"
+                            className="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg border border-white/15 bg-white/70 hover:bg-white"
               onClick={() => setModal({ open: true, groupName: g.name, index: i, request: r as any })}
                           >
                             Gérer
@@ -380,31 +380,31 @@ export default function EventRequestsPage() {
       {modal.open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setModal({ open: false })} />
-          <div className="relative w-full sm:max-w-md rounded-2xl border border-black/10 dark:border-white/15 bg-white/95 dark:bg-slate-900/95 p-5 shadow-2xl">
+          <div className="relative w-full sm:max-w-md rounded-2xl border border-white/15 bg-white/95 p-5 shadow-2xl">
             <div className="mb-3 flex items-start gap-3">
               <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-200">
                 <img src={event.imageUrl} alt="" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-slate-900 dark:text-white truncate">{modal.groupName}</div>
-                <div className="text-xs text-slate-600 dark:text-slate-400">Demande de rejoint à valider</div>
+                <div className="font-bold text-slate-900 truncate">{modal.groupName}</div>
+                <div className="text-xs text-slate-600 de rejoint à valider</div>
               </div>
             </div>
 
-            <div className="text-sm text-slate-700 dark:text-slate-300 space-y-2">
+            <div className="text-sm text-slate-700 space-y-2">
               <p>Souhaitez-vous accepter ou refuser cette demande ?</p>
               <p>
                 En acceptant, la personne sera accréditée pour rejoindre votre groupe à l’événement. Le paiement éventuel est déjà préautorisé/capturé et
                 l’argent est conservé de manière sécurisée. Vous recevrez le montant qui vous est dû après avoir scanné le QR code du participant le jour de l’événement,
                 moins les frais de la plateforme.
               </p>
-              <p className="text-[12px] text-slate-500 dark:text-slate-400">
+              <p className="text-[12px] text-slate-500
                 Les frais de plateforme seront précisés ultérieurement et déduits automatiquement lors du versement.
               </p>
             </div>
 
             <div className="mt-4 flex items-center justify-end gap-2">
-              <button className="px-3 py-1.5 text-sm rounded-lg border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/10" onClick={() => setModal({ open: false })}>Annuler</button>
+              <button className="px-3 py-1.5 text-sm rounded-lg border border-white/15 bg-white/70 onClick={() => setModal({ open: false })}>Annuler</button>
               <button
                 className="px-3 py-1.5 text-sm rounded-lg bg-rose-600 text-white hover:opacity-90"
                 onClick={async () => {

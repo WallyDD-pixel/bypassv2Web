@@ -41,7 +41,7 @@ export default function GenerateQRPage() {
   if (loading) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6 animate-pulse h-40" />
+        <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6 animate-pulse h-40" />
       </main>
     );
   }
@@ -54,9 +54,9 @@ export default function GenerateQRPage() {
   if (!event) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6">
+        <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6">
           <p className="text-red-600">Événement introuvable.</p>
-          <Link href="/scan" className="mt-3 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900">Retour</Link>
+          <Link href="/scan" className="mt-3 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white
         </div>
       </main>
     );
@@ -244,17 +244,17 @@ export default function GenerateQRPage() {
 
   return (
     <main className="max-w-xl mx-auto px-4 py-8">
-      <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
-        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mb-3">Mon QR — {event.title}</h1>
-        <div className="text-sm text-slate-700 dark:text-slate-300 space-y-1">
-          <div><span className="font-semibold text-slate-900 dark:text-white">Événement:</span> {event.title}</div>
-          <div><span className="font-semibold text-slate-900 dark:text-white">Date:</span> {fullDate}</div>
-          <div><span className="font-semibold text-slate-900 dark:text-white">Groupe:</span> {groupName}</div>
-          <div><span className="font-semibold text-slate-900 dark:text-white">Montant payé:</span> {fmt(amount)}</div>
+      <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-3">Mon QR — {event.title}</h1>
+        <div className="text-sm text-slate-700 space-y-1">
+          <div><span className="font-semibold text-slate-900 {event.title}</div>
+          <div><span className="font-semibold text-slate-900 {fullDate}</div>
+          <div><span className="font-semibold text-slate-900 {groupName}</div>
+          <div><span className="font-semibold text-slate-900 payé:</span> {fmt(amount)}</div>
         </div>
 
         <div className="mt-5 grid place-items-center gap-2 relative">
-          <canvas ref={canvasRef} width={280} height={280} className={`rounded-xl border border-black/10 dark:border-white/15 bg-white ${alreadyScanned ? 'opacity-70 grayscale' : ''}`} aria-label="Mon QR" />
+          <canvas ref={canvasRef} width={280} height={280} className={`rounded-xl border border-white/15 bg-white ${alreadyScanned ? 'opacity-70 grayscale' : ''}`} aria-label="Mon QR" />
           {overlay.visible && (
             <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] rounded-xl flex items-center justify-center p-4">
               <div className="w-full max-w-sm rounded-2xl bg-white text-slate-900 p-5 shadow-xl">
@@ -276,14 +276,14 @@ export default function GenerateQRPage() {
               </div>
             </div>
           )}
-          {!qrReady && <div className="text-[11px] text-slate-600 dark:text-slate-300">Cliquez sur “Générer mon QR”.</div>}
-          <button onClick={generate} disabled={btnLoading} className={`rounded-xl px-4 py-2 text-sm font-semibold ${alreadyScanned ? 'bg-slate-900/80' : 'bg-slate-900'} text-white dark:bg-white dark:text-slate-900`}>{btnLoading ? 'Chargement…' : (qrReady ? 'Régénérer' : 'Générer mon QR')}</button>
+          {!qrReady && <div className="text-[11px] text-slate-600 sur “Générer mon QR”.</div>}
+          <button onClick={generate} disabled={btnLoading} className={`rounded-xl px-4 py-2 text-sm font-semibold ${alreadyScanned ? 'bg-slate-900/80' : 'bg-slate-900'} text-white ? 'Chargement…' : (qrReady ? 'Régénérer' : 'Générer mon QR')}</button>
           {qrError && <div className="text-xs text-red-600">{qrError}</div>}
         </div>
 
-        <div className="mt-4 text-xs text-slate-600 dark:text-slate-300">
+        <div className="mt-4 text-xs text-slate-600
           {alreadyScanned ? (
-            <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50/70 dark:bg-emerald-500/10 rounded-md px-2 py-1">
+            <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50/70 rounded-md px-2 py-1">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg>
               Vous avez déjà été scanné(e) pour cet événement.
             </span>
@@ -293,7 +293,7 @@ export default function GenerateQRPage() {
         </div>
 
         <div className="mt-5 flex items-center justify-between">
-          <Link href="/scan" className="rounded-xl px-3 py-1.5 text-xs font-semibold border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/10">Retour</Link>
+          <Link href="/scan" className="rounded-xl px-3 py-1.5 text-xs font-semibold border border-white/15 bg-white/70
           {qrReady && (
             <button
               onClick={() => {
@@ -307,7 +307,7 @@ export default function GenerateQRPage() {
                   a.click();
                 } catch {}
               }}
-              className="rounded-xl px-3 py-1.5 text-xs font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+              className="rounded-xl px-3 py-1.5 text-xs font-semibold bg-slate-900 text-white
             >Télécharger</button>
           )}
         </div>

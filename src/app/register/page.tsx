@@ -55,7 +55,7 @@ export default function RegisterPage() {
       <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl p-6 shadow-[0_12px_40px_rgba(0,0,0,0.14)]">
         <form onSubmit={submit} className="space-y-4">
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Nom d’utilisateur</span>
+            <span className="text-sm text-slate-700 d’utilisateur</span>
             <input
               type="text"
               value={name}
@@ -65,7 +65,7 @@ export default function RegisterPage() {
             />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Email</span>
+            <span className="text-sm text-slate-700
             <input
               type="email"
               value={email}
@@ -75,7 +75,7 @@ export default function RegisterPage() {
             />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Mot de passe</span>
+            <span className="text-sm text-slate-700 de passe</span>
             <div className="mt-1 flex rounded-xl border border-white/15 bg-white/5 overflow-hidden">
               <input
                 type={showPwd ? "text" : "password"}
@@ -84,13 +84,13 @@ export default function RegisterPage() {
                 required
                 className="flex-1 px-3 py-2 bg-transparent outline-none"
               />
-              <button type="button" onClick={() => setShowPwd((v) => !v)} className="px-3 text-sm text-slate-600 dark:text-slate-300 hover:opacity-80">
+              <button type="button" onClick={() => setShowPwd((v) => !v)} className="px-3 text-sm text-slate-600 hover:opacity-80">
                 {showPwd ? "Masquer" : "Afficher"}
               </button>
             </div>
           </label>
           <label className="block">
-            <span className="text-sm text-slate-700 dark:text-slate-300">Confirmer le mot de passe</span>
+            <span className="text-sm text-slate-700 le mot de passe</span>
             <input
               type={showPwd ? "text" : "password"}
               value={confirm}
@@ -100,17 +100,17 @@ export default function RegisterPage() {
             />
           </label>
           {error && <div className="text-sm text-red-600">{error}</div>}
-          <button type="submit" className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow hover:opacity-90">Créer mon compte</button>
+          <button type="submit" className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white shadow hover:opacity-90">Créer mon compte</button>
         </form>
 
         <div className="my-5 flex items-center gap-3 text-xs text-slate-500">
-          <div className="h-px flex-1 bg-slate-300/60 dark:bg-white/15" />
+          <div className="h-px flex-1 bg-slate-300/60 />
           <span>ou</span>
-          <div className="h-px flex-1 bg-slate-300/60 dark:bg-white/15" />
+          <div className="h-px flex-1 bg-slate-300/60 />
         </div>
 
         <div className="grid grid-cols-1 gap-3">
-          <button onClick={() => signWith("google")} className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-white text-slate-900 border border-black/10 hover:bg-white dark:text-slate-900">
+          <button onClick={() => signWith("google")} className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-white text-slate-900 border border-white/15 hover:bg-white
             Continuer avec Google (démo)
           </button>
           <button onClick={() => signWith("apple")} className="w-full rounded-xl px-4 py-2 text-sm font-semibold bg-black text-white hover:opacity-90">
@@ -118,7 +118,7 @@ export default function RegisterPage() {
           </button>
         </div>
 
-        <div className="mt-6 text-sm text-slate-700 dark:text-slate-300 text-center">
+        <div className="mt-6 text-sm text-slate-700 text-center">
           Déjà un compte ?
           <Link href="/login" className="ml-1 font-semibold underline">Se connecter</Link>
         </div>

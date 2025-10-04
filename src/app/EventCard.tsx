@@ -49,7 +49,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
       <div className="relative">
         <img src={imageUrl} alt={title} className="w-full h-[200px] object-cover transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.03]" />
         {/* Date badge */}
-        <div className="absolute top-3 left-3 backdrop-blur-2xl bg-black/30 border border-white/40 dark:border-white/20 text-white rounded-xl px-3 py-2 leading-none shadow">
+        <div className="absolute top-3 left-3 backdrop-blur-2xl bg-black/30 border border-white/40 text-white rounded-xl px-3 py-2 leading-none shadow">
           <div className="flex items-baseline gap-1">
             <span className="text-2xl font-extrabold drop-shadow">{dayNum}</span>
             <span className="text-xs font-semibold tracking-wide">{month}</span>
@@ -59,13 +59,13 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
         <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
       </div>
       <div className="p-5 min-h-[168px]">
-        <h3 className="text-xl font-extrabold mb-1 text-black dark:text-white line-clamp-2">
+        <h3 className="text-xl font-extrabold mb-1 text-black line-clamp-2">
           {title}
         </h3>
-        <div className="text-neutral-800 dark:text-neutral-200 text-sm mb-2">
+        <div className="text-neutral-800 text-sm mb-2">
           {fullDate}
         </div>
-        <div className="text-neutral-800 dark:text-neutral-200 text-sm mb-3">
+        <div className="text-neutral-800 text-sm mb-3">
           <span className="font-semibold">{venue}</span>
           <span className="mx-1">•</span>
           <span>{city}</span>
@@ -80,7 +80,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
                     key={`${title}-av-${i}`}
                     src={src}
                     alt=""
-                    className={`${sizeClass} rounded-full ring-2 ring-white/80 dark:ring-black/40 object-cover`}
+                    className={`${sizeClass} rounded-full ring-2 ring-white/80 object-cover`}
                     loading="lazy"
                   />
                 ))}
@@ -88,7 +88,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
               {totalAvatars > shownAvatars && (
                 <div className="flex items-center ml-2" aria-hidden>
                   <div
-                    className={`${sizeClass} rounded-full ring-2 ring-white/80 dark:ring-black/40 bg-slate-800 text-white text-xs font-semibold grid place-items-center`}
+                    className={`${sizeClass} rounded-full ring-2 ring-white/80 bg-slate-800 text-white text-xs font-semibold grid place-items-center`}
                   >
                     {totalAvatars - shownAvatars}
                   </div>
@@ -96,7 +96,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, startAt, venue, city, imag
               )}
             </>
           ) : (
-            <div className="text-xs text-neutral-600 dark:text-neutral-400 select-none" aria-live="polite">
+            <div className="text-xs text-neutral-600 select-none" aria-live="polite">
               Aucun groupe pour cet événement pour l'instant.
             </div>
           )}

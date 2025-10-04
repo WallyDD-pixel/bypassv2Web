@@ -491,7 +491,7 @@ export default function EventScannerPage() {
   if (loading) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6 animate-pulse h-40" />
+        <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6 animate-pulse h-40" />
       </main>
     );
   }
@@ -499,10 +499,10 @@ export default function EventScannerPage() {
   if (!isAuthenticated) {
     return (
       <main className="max-w-md mx-auto px-4 py-16">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6">
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mb-2">Scanner un QR code</h1>
-          <p className="text-slate-600 dark:text-slate-300 mb-4">Connectez-vous pour scanner les membres à l’entrée.</p>
-          <Link href="/login" className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900">Se connecter</Link>
+        <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">Scanner un QR code</h1>
+          <p className="text-slate-600 mb-4">Connectez-vous pour scanner les membres à l’entrée.</p>
+          <Link href="/login" className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white connecter</Link>
         </div>
       </main>
     );
@@ -511,9 +511,9 @@ export default function EventScannerPage() {
   if (!event) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6">
+        <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6">
           <p className="text-red-600">Événement introuvable.</p>
-          <Link href="/scan" className="mt-3 hidden md:inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900">Retour</Link>
+          <Link href="/scan" className="mt-3 hidden md:inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white
         </div>
       </main>
     );
@@ -522,16 +522,16 @@ export default function EventScannerPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-6">
       {/* Desktop title only; on mobile the MobileHeader shows back + title */}
-      <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 dark:text-white mb-4">Scanner — {event.title}</h1>
+      <h1 className="hidden md:block text-2xl font-extrabold text-slate-900 mb-4">Scanner — {event.title}</h1>
 
       {error && (
-        <div className="mb-3 rounded-xl border border-red-200/50 bg-red-50/60 dark:bg-red-500/10 text-red-700 dark:text-red-300 px-4 py-2 text-sm">{error}</div>
+        <div className="mb-3 rounded-xl border border-red-200/50 bg-red-50/60 text-red-700 px-4 py-2 text-sm">{error}</div>
       )}
       {info && (
-        <div className="mb-3 rounded-xl border border-emerald-200/50 bg-emerald-50/60 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-4 py-2 text-sm">{info}</div>
+        <div className="mb-3 rounded-xl border border-emerald-200/50 bg-emerald-50/60 text-emerald-700 px-4 py-2 text-sm">{info}</div>
       )}
 
-      <div className="relative rounded-2xl overflow-hidden border border-black/10 dark:border-white/15 bg-black/90">
+      <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black/90">
         <video ref={videoRef} className={`w-full aspect-[3/4] object-cover ${isFrozen ? 'grayscale-[15%]' : ''}`} playsInline muted />
         {/* Overlay UI */}
         {overlay.visible && (
@@ -572,7 +572,7 @@ export default function EventScannerPage() {
         <div className="px-4 py-3 text-xs text-white/80">Alignez le QR dans le cadre. Un bip visuel confirmera la lecture.</div>
       </div>
 
-      <div className="mt-2 text-[12px] text-slate-600 dark:text-slate-300">
+      <div className="mt-2 text-[12px] text-slate-600
         Conseil: si la caméra ne démarre pas, autorisez son accès dans la barre d’adresse du navigateur et utilisez une URL en HTTPS.
       </div>
     </main>

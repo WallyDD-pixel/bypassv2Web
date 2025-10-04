@@ -202,7 +202,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <GlassCard className="p-5 md:p-6 shadow-[0_12px_40px_rgba(0,0,0,0.10)] bg-transparent">
             <div className="flex items-start gap-3">
-              <div className="hidden sm:block w-8 h-8 rounded-full bg-gradient-to-br from-pink-300/70 to-purple-300/60 dark:from-white/15 dark:to-white/5" />
+              <div className="hidden sm:block w-8 h-8 rounded-full bg-gradient-to-br from-pink-300/70 to-purple-300/60 />
               <div className="flex-1 min-w-0">
                 <h2 className="text-base md:text-lg font-extrabold text-white mb-1">Le concept, en douceur</h2>
                 <p className="text-sm text-white/90">

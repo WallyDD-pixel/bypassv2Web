@@ -96,7 +96,7 @@ export default function PwaInstallPrompt() {
           </button>
         )}
         <button
-          className="px-2 py-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:underline"
+          className="px-2 py-1 text-xs sm:text-sm text-slate-600 hover:underline"
           onClick={() => {
             setShow(false);
             localStorage.setItem("pwa:install:dismissed", "1");

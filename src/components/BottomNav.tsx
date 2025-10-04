@@ -120,8 +120,8 @@ export default function BottomNav() {
           aria-hidden
           className={`flex items-center justify-center w-10 h-10 transition-colors rounded-xl border ${
             active
-              ? "text-white opacity-100 bg-white/10 border-white/60 dark:border-white/10 shadow-sm"
-              : "text-slate-600 dark:text-slate-300 opacity-75 hover:opacity-100 bg-transparent border-transparent"
+              ? "text-white opacity-100 bg-white/10 border-white/60 shadow-sm"
+              : "text-slate-600 opacity-75 hover:opacity-100 bg-transparent border-transparent"
           }`}
         >
           <span className="relative inline-block">
@@ -129,7 +129,7 @@ export default function BottomNav() {
             {typeof badge === "number" && badge > 0 && (
               <span
                 aria-hidden
-                className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80 dark:ring-black/50"
+                className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
               >
                 {badge > 99 ? "99+" : badge}
               </span>
@@ -143,7 +143,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed left-1/2 -translate-x-1/2 z-50 w-[min(560px,calc(100%-2rem))] md:hidden" style={{ bottom: "max(8px, env(safe-area-inset-bottom, 0px) + 4px)" }}>
-      <div className="relative backdrop-blur-xl bg-white/5 border border-white/50 dark:border-white/15 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl px-4 py-2 text-white">
+      <div className="relative backdrop-blur-xl bg-white/5 border border-white/50 shadow-[0_10px_30px_rgba(31,38,135,0.18)] rounded-2xl px-4 py-2 text-white">
         {/* Grille stable: 2 colonnes gauche, 1 vide pour la bulle Scan, 3 à droite */}
         <div className="grid grid-cols-6 items-center gap-x-6">
           <div className="col-span-2 flex items-center justify-evenly gap-6 pr-3">
@@ -161,14 +161,14 @@ export default function BottomNav() {
         <Link
           href="/scan"
           aria-label="Scanner un QR code"
-          className="absolute -top-5 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xl ring-2 ring-white/90 dark:ring-black/50 flex items-center justify-center z-10"
+          className="absolute -top-5 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-slate-900 text-white shadow-xl ring-2 ring-white/90 flex items-center justify-center z-10"
           title="Scanner un QR code"
         >
           <span className="scale-110"><IconQR /></span>
           {badges.requests > 0 && (
             <span
               aria-hidden
-              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80 dark:ring-black/50"
+              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
             >
               {badges.requests > 99 ? '99+' : badges.requests}
             </span>
@@ -180,13 +180,13 @@ export default function BottomNav() {
           href="/messages"
           aria-label="Messages"
           title="Messages"
-          className="absolute -top-15 right-4 w-12 h-12 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xl ring-2 ring-white/90 dark:ring-black/50 flex items-center justify-center z-10"
+          className="absolute -top-15 right-4 w-12 h-12 rounded-full bg-slate-900 text-white shadow-xl ring-2 ring-white/90 flex items-center justify-center z-10"
         >
           <span className="scale-110"><IconEnvelope /></span>
           {badges.messages > 0 && (
             <span
               aria-hidden
-              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80 dark:ring-black/50"
+              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
             >
               {badges.messages > 99 ? '99+' : badges.messages}
             </span>

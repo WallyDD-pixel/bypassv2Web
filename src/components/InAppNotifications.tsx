@@ -187,7 +187,7 @@ export default function InAppNotifications() {
                 ? "bg-gradient-to-br from-amber-500/25 to-amber-600/25 border-white/10 text-white"
                 : n.variant === "error"
                 ? "bg-gradient-to-br from-rose-500/25 to-rose-600/25 border-white/10 text-white"
-                : "bg-white/5 border-white/40 dark:border-white/15 text-white",
+                : "bg-white/5 border-white/40 text-white",
               // Ombres douces comme la TopNav
               "shadow-[0_10px_30px_rgba(31,38,135,0.18)]",
               // Animation
@@ -209,7 +209,7 @@ export default function InAppNotifications() {
                       ? "bg-amber-400/20 text-amber-200"
                       : n.variant === "error"
                       ? "bg-rose-400/20 text-rose-200"
-                      : "bg-white/10 text-slate-900/70 dark:text-white/80",
+                      : "bg-white/10 text-slate-900/70
                   ].join(" ")}>
                     •
                   </span>
@@ -220,7 +220,7 @@ export default function InAppNotifications() {
                   {n.title}
                 </div>
                 {n.message && (
-                  <div className="mt-0.5 text-xs leading-5 text-black/70 dark:text-white/85 line-clamp-2">
+                  <div className="mt-0.5 text-xs leading-5 text-black/70 line-clamp-2">
                     {n.message}
                   </div>
                 )}
@@ -228,13 +228,13 @@ export default function InAppNotifications() {
               <button
                 aria-label="Fermer"
                 onClick={(e) => { e.stopPropagation(); dismiss(n.id); }}
-                className="rounded-md p-1.5 text-black/60 hover:text-black/80 dark:text-white/80 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition"
+                className="rounded-md p-1.5 text-black/60 hover:text-black/80 hover:bg-black/5 transition"
               >
                 ×
               </button>
             </div>
             {/* barre de progression */}
-            <div className="h-0.5 w-full bg-black/10 dark:bg-white/10">
+            <div className="h-0.5 w-full bg-black/10
               <div className={[
                 "h-full animate-[bar_6s_linear]",
                 n.variant === "success"
@@ -243,7 +243,7 @@ export default function InAppNotifications() {
                   ? "bg-amber-300"
                   : n.variant === "error"
                   ? "bg-rose-300"
-                  : "bg-slate-300 dark:bg-white/60",
+                  : "bg-slate-300
               ].join(" ")} />
             </div>
           </div>

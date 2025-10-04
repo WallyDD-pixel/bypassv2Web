@@ -17,7 +17,7 @@ const variants: Record<Variant, string> = {
     "bg-white text-slate-900 shadow hover:opacity-90",
   outline:
     "border border-white/15 bg-white/5 text-white hover:shadow",
-  ghost: "text-slate-800 dark:text-white hover:bg-white/10",
+  ghost: "text-slate-800 hover:bg-white/10",
 };
 
 const sizes: Record<Size, string> = {
