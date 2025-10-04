@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { useRealtime } from "@/lib/useRealtime";
 
@@ -33,6 +33,7 @@ export default function InAppNotifications() {
   const audioReadyRef = useRef<boolean>(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated } = useAuth();
 
   const dismiss = useCallback((id: string) => {
@@ -111,6 +112,12 @@ export default function InAppNotifications() {
       const sender = String(p.senderEmail || "").toLowerCase();
       const me = String(user?.email || "").toLowerCase();
       if (sender && me && sender === me) return; // ne pas notifier pour ses propres messages
+      
+      // Ne pas afficher la notification si on est déjà sur la page de cette conversation
+      // ou sur la page des messages en général
+      const currentConversationPath = `/messages/${p.conversationId}`;
+      if (pathname === currentConversationPath || pathname === '/messages') return;
+      
       const preview = (p.content || "").slice(0, 90);
       const who = (p as any).senderName || p.senderEmail || "Quelqu'un";
       show({
@@ -155,7 +162,7 @@ export default function InAppNotifications() {
   return (
     <NotificationsContext.Provider value={ctx}>
       {/* Conteneur des toasts en haut */}
-      <div className="pointer-events-none fixed left-1/2 top-3 z-50 -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
+      <div className="pointer-events-none fixed left-1/2 top-3 z-[9999] -translate-x-1/2 space-y-2 px-2 sm:top-4 w-full max-w-xl">
         {items.map((n) => (
           <div
             key={n.id}

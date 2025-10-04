@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { emitJoinRequestUpdated, emitMessageCreated } from "@/lib/events";
 import { sendJoinAcceptedEmail, sendOwnerNotifiedAcceptedEmail } from "@/lib/email";
 import { sendPushToUser } from "@/lib/webpush";
+import { isUserActive } from "@/app/api/user-visibility/route";
 
 export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
   const { id: idStr } = await context.params;
@@ -66,11 +67,13 @@ export async function PATCH(_req: NextRequest, context: { params: Promise<{ id: 
           eventSlug: updated.eventSlug,
           groupName: updated.groupName,
         });
-        await sendPushToUser(updated.memberEmail, {
-          title: "Votre demande a été acceptée",
-          body: `${updated.groupName} — ${updated.eventSlug}`,
-          url: `/scan`,
-        });
+        if (!isUserActive(updated.memberEmail)) {
+          await sendPushToUser(updated.memberEmail, {
+            title: "Votre demande a été acceptée",
+            body: `${updated.groupName} — ${updated.eventSlug}`,
+            url: `/scan`,
+          });
+        }
       } catch {}
       // Email de notification à l’organisatrice du groupe (best-effort)
       try {

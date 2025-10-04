@@ -10,6 +10,7 @@ import GenericSkeleton, { HomeSkeleton, ExploreSkeleton, EventDetailSkeleton, Re
 import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 import { ensurePushSubscription } from "@/lib/push-client";
 import InAppNotifications from "@/components/InAppNotifications";
+import { UserVisibilityTracker } from "@/components/UserVisibilityTracker";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -116,6 +117,9 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       </main>
       {/* BottomNav: cacher sur /login */}
       {showBottomNav && <BottomNav />}
+      
+      {/* Tracker de visibilité pour gérer les notifications push */}
+      <UserVisibilityTracker />
     </>
   );
 }
