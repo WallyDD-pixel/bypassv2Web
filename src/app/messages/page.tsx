@@ -117,7 +117,9 @@ export default function MessagesPage() {
 
       {fetching ? (
         <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-3 text-center">
-          <div className="text-xs text-slate-700
+          <div className="text-xs text-slate-700">
+            Chargement des conversations...
+          </div>
         </section>
       ) : showEmpty ? (
         <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-3 text-center">
@@ -145,7 +147,7 @@ export default function MessagesPage() {
         </section>
       ) : (
         <section className="rounded-xl border border-white/40 bg-white/5 backdrop-blur p-1">
-          <ul className="divide-y divide-white/40
+          <ul className="divide-y divide-white/40">
             {conversations.map((c) => (
               <li key={c.id} className="">
                 <Link href={`/messages/${c.id}`} className="flex items-center gap-2 px-3 py-2 hover:bg-white/60 rounded-lg">
@@ -158,7 +160,7 @@ export default function MessagesPage() {
                       <div className="flex items-center gap-2">
                         <div className="text-[10px] opacity-60 whitespace-nowrap">{new Date(c.createdAt).toLocaleDateString()}</div>
                         {unreads[c.id] && (
-                          <span aria-label="non lu" className="inline-block w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white/70 />
+                          <span aria-label="non lu" className="inline-block w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white/70" />
                         )}
                       </div>
                     </div>

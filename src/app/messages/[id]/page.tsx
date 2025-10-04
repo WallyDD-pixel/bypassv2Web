@@ -152,11 +152,11 @@ export default function ConversationPage() {
 						style={{ overflowAnchor: "none" as any }}
 					>
 				{!Number.isFinite(id) ? (
-					<div className="text-sm text-slate-600 de conversation invalide.</div>
+					<div className="text-sm text-slate-600">Conversation invalide.</div>
 				) : loading ? (
-					<div className="text-sm text-slate-600
+					<div className="text-sm text-slate-600">Chargement…</div>
 				) : error ? (
-					<div className="text-sm text-red-600
+					<div className="text-sm text-red-600">{error}</div>
 				) : messages.length === 0 ? (
 					<div className="text-sm text-slate-600 text-center mt-6">Aucun message pour l’instant.</div>
 				) : (
@@ -167,8 +167,8 @@ export default function ConversationPage() {
 								key={m.id}
 								className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
 									mine
-										? "ml-auto bg-slate-900 text-white
-										: "bg-white/80
+										? "ml-auto bg-slate-900 text-white"
+										: "bg-white/80"
 								}`}
 							>
 								<div className="text-[10px] opacity-70 mb-0.5">{m.senderEmail.split("@")[0]}</div>
@@ -181,7 +181,7 @@ export default function ConversationPage() {
 					<div ref={endRef} />
 				</div>
 
-				<div className="pt-2 mt-2 flex items-center gap-2 border-t border-white/50
+				<div className="pt-2 mt-2 flex items-center gap-2 border-t border-white/50">
 					<input
 						ref={inputRef}
 						type="text"
@@ -193,7 +193,7 @@ export default function ConversationPage() {
 						onFocus={() => setTimeout(() => scrollToEnd("smooth"), 50)}
 						onBlur={() => setTimeout(() => scrollToEnd(), 80)}
 					/>
-					<button onClick={send} className="px-3 py-2 rounded-xl bg-slate-900 text-white
+					<button onClick={send} className="px-3 py-2 rounded-xl bg-slate-900 text-white">
 						Envoyer
 					</button>
 				</div>

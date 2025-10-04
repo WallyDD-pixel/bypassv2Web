@@ -106,38 +106,40 @@ export default function BottomNav() {
   const NavItem = ({ href, label, icon, badge }: { href: string; label: string; icon: IconKey; badge?: number }) => {
     const active = isActive(pathname, href);
     return (
-      <motion.a
-        key={href}
-        href={href}
-        aria-label={label}
-        aria-current={active ? "page" : undefined}
-        title={label}
-  className="p-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20 rounded-full"
-        whileTap={{ scale: 0.92 }}
-        whileHover={{ scale: 1.04 }}
+  <motion.a
+    key={href}
+    href={href}
+    aria-label={label}
+    aria-current={active ? "page" : undefined}
+    title={label}
+    className="p-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20 rounded-full"
+    whileTap={{ scale: 0.92 }}
+    whileHover={{ scale: 1.04 }}
+  >
+    <>
+      <span
+        aria-hidden
+        className={`flex items-center justify-center w-10 h-10 transition-colors rounded-xl border ${
+          active
+            ? "text-white opacity-100 bg-white/10 border-white/60 shadow-sm"
+            : "text-slate-600 opacity-75 hover:opacity-100 bg-transparent border-transparent"
+        }`}
       >
-        <span
-          aria-hidden
-          className={`flex items-center justify-center w-10 h-10 transition-colors rounded-xl border ${
-            active
-              ? "text-white opacity-100 bg-white/10 border-white/60 shadow-sm"
-              : "text-slate-600 opacity-75 hover:opacity-100 bg-transparent border-transparent"
-          }`}
-        >
-          <span className="relative inline-block">
-            {icons[icon]}
-            {typeof badge === "number" && badge > 0 && (
-              <span
-                aria-hidden
-                className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
-              >
-                {badge > 99 ? "99+" : badge}
-              </span>
-            )}
-          </span>
+        <span className="relative inline-block">
+          {icons[icon]}
+          {typeof badge === "number" && badge > 0 && (
+            <span
+              aria-hidden
+              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80"
+            >
+              {badge > 99 ? "99+" : badge}
+            </span>
+          )}
         </span>
-        <span className="sr-only">{label}</span>
-      </motion.a>
+      </span>
+      <span className="sr-only">{label}</span>
+    </>
+  </motion.a>
     );
   };
 
@@ -168,7 +170,7 @@ export default function BottomNav() {
           {badges.requests > 0 && (
             <span
               aria-hidden
-              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
+              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80"
             >
               {badges.requests > 99 ? '99+' : badges.requests}
             </span>
@@ -186,7 +188,7 @@ export default function BottomNav() {
           {badges.messages > 0 && (
             <span
               aria-hidden
-              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80
+              className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[10px] leading-4 font-bold grid place-items-center ring-1 ring-white/80"
             >
               {badges.messages > 99 ? '99+' : badges.messages}
             </span>

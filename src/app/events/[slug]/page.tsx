@@ -15,7 +15,20 @@ export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { isAuthenticated, loading, user } = useAuth();
   const router = useRouter();
-  const event = getEventBySlug(slug || "");
+  type Event = {
+    title?: string;
+    startAt?: string | number | Date;
+    imageUrl?: string;
+    venue?: string;
+    city?: string;
+    description?: string;
+    isFree?: boolean;
+    minPrice?: number;
+    currency?: string;
+    price?: string;
+    ticketsUrl?: string;
+  };
+  const event: Event | null | undefined = getEventBySlug(slug || "");
   const [showFullDesc, setShowFullDesc] = useState(false);
   // Merge persisted groups from localStorage (typed lite to avoid any)
   const [persistedGroups, setPersistedGroups] = useState<GroupLite[]>([]);
@@ -124,7 +137,7 @@ export default function EventDetailPage() {
   if (!event) {
     return (
       <main className="max-w-5xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-white/15 bg-white/60 backdrop-blur-xl p-6 text-slate-700
+        <div className="rounded-2xl border border-white/15 bg-white/60 backdrop-blur-xl p-6 text-slate-700">
           Événement introuvable.
         </div>
       </main>
@@ -175,7 +188,7 @@ export default function EventDetailPage() {
       <section className="mt-8 md:mt-10">
         {/* Bloc central d’actions (CTA/groupes/billetterie) */}
         <aside className="max-w-xl mx-auto rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-5 md:p-7 shadow-[0_12px_40px_rgba(0,0,0,0.14)] flex flex-col gap-4 md:gap-5">
-          <h2 className="text-base font-extrabold text-slate-900 qui y vont</h2>
+          <h2 className="text-base font-extrabold text-slate-900">Qui y vont</h2>
           <p className="text-xs text-slate-600 -mt-1">Rejoignez un groupe existant ou créez le vôtre en quelques instants.</p>
 
           <div className="flex flex-col gap-2 mt-1">
@@ -212,7 +225,7 @@ export default function EventDetailPage() {
               Créer un groupe
             </PillButton>
             {isAuthenticated && !loading && !canCreateGroup && (
-              <p className="text-xs text-slate-600
+              <p className="text-xs text-slate-600">
                 Seules les utilisatrices peuvent créer un groupe. 
               </p>
             )}
@@ -223,7 +236,7 @@ export default function EventDetailPage() {
             )}
           </div>
       {allGroups.length === 0 ? (
-            <p className="text-slate-600 pour l’instant il n’y a aucun groupe qui va à cet événement.</p>
+            <p className="text-slate-600">Pour l’instant il n’y a aucun groupe qui va à cet événement.</p>
           ) : (
             <div className={`flex items-center py-1 ${loading ? "opacity-60 blur-[2px] grayscale" : !isAuthenticated ? "opacity-60 blur-[2px] grayscale" : ""}`}>
         {allGroups.slice(0, 5).map((g, i) => (
@@ -247,7 +260,7 @@ export default function EventDetailPage() {
                       }}
                     />
                   ) : (
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-slate-300 to-slate-500 flex items-center justify-center text-xs font-bold text-slate-800
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-slate-300 to-slate-500 flex items-center justify-center text-xs font-bold text-slate-800">
                       {g.name.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -264,9 +277,11 @@ export default function EventDetailPage() {
           {/* Doublon supprimé: un seul bloc CTA au-dessus suffit */}
 
           {/* Billetterie (Shotgun) */}
-          <div className="mt-4 pt-4 border-t border-white/15
-            <div className="uppercase text-xs tracking-[0.18em] text-slate-600
-            <div className="text-2xl font-extrabold text-slate-900
+          <div className="mt-4 pt-4 border-t border-white/15">
+            <div className="uppercase text-xs tracking-[0.18em] text-slate-600">
+              Billetterie
+            </div>
+            <div className="text-2xl font-extrabold text-slate-900">
               {event?.isFree ? (
                 <>Gratuit</>
               ) : typeof event?.minPrice === "number" ? (
@@ -275,7 +290,7 @@ export default function EventDetailPage() {
                 <>{event?.price}</>
               )}
             </div>
-            <p className="mt-1 text-xs text-slate-600
+            <p className="mt-1 text-xs text-slate-600">
               Les billets ne s’achètent pas ici. Ce bouton vous redirige vers Shotgun pour payer votre place.
             </p>
             <PillLink href={event?.ticketsUrl || "#"} target="_blank" rel="noopener noreferrer" size="lg" className="mt-3 inline-flex items-center gap-2">

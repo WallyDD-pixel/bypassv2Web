@@ -502,7 +502,7 @@ export default function EventScannerPage() {
         <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6">
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">Scanner un QR code</h1>
           <p className="text-slate-600 mb-4">Connectez-vous pour scanner les membres à l’entrée.</p>
-          <Link href="/login" className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white connecter</Link>
+          <Link href="/login" className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white">Se connecter</Link>
         </div>
       </main>
     );
@@ -513,10 +513,10 @@ export default function EventScannerPage() {
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="rounded-2xl border border-white/15 bg-white/70 backdrop-blur-xl p-6">
           <p className="text-red-600">Événement introuvable.</p>
-          <Link href="/scan" className="mt-3 hidden md:inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white
-        </div>
-      </main>
-    );
+    <Link href="/scan" className="mt-3 hidden md:inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold bg-slate-900 text-white">Retour à la liste</Link>
+            </div>
+          </main>
+        );
   }
 
   return (
@@ -572,7 +572,7 @@ export default function EventScannerPage() {
         <div className="px-4 py-3 text-xs text-white/80">Alignez le QR dans le cadre. Un bip visuel confirmera la lecture.</div>
       </div>
 
-      <div className="mt-2 text-[12px] text-slate-600
+      <div className="mt-2 text-[12px] text-slate-600">
         Conseil: si la caméra ne démarre pas, autorisez son accès dans la barre d’adresse du navigateur et utilisez une URL en HTTPS.
       </div>
     </main>

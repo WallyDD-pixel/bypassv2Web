@@ -215,7 +215,7 @@ export default function ScanPage() {
               <h1 className="text-xl sm:text-2xl font-extrabold text-white">
           {isMale ? "Générer mon QR" : "Scanner un QR code"}
         </h1>
-        <p className="text-slate-600
+        <p className="text-slate-600">
           {isMale
             ? "Voici les groupes qui ont accepté votre demande. Générez votre QR pour l’entrée."
             : "Choisissez un événement où vous organisez un groupe, puis scannez les QR codes des membres."}
@@ -224,7 +224,7 @@ export default function ScanPage() {
 
       {isMale ? (
         accepted.length === 0 ? (
-          <GlassCard className="p-6 text-slate-700
+          <GlassCard className="p-6 text-slate-700">
             <p>Aucune demande acceptée pour le moment.</p>
             <PillLink href="/" className="mt-3">Voir les événements</PillLink>
           </GlassCard>
@@ -250,21 +250,29 @@ export default function ScanPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm text-slate-600
+                      <div className="text-sm text-slate-600">
                         {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                       </div>
                       <div className="font-bold text-white truncate">{e.title}</div>
                       <div className="text-sm text-slate-700 truncate flex items-center gap-2">
                         <span>Groupe: {a.group}</span>
                         {a.scanned ? (
-                          <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium bg-emerald-50 text-emerald-700
+                          <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium bg-emerald-50 text-emerald-700">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-3.5 w-3.5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg>
                             Déjà scanné
                           </span>
                         ) : null}
                       </div>
                     </div>
-                    <PillLink href={`/qr/${a.slug}/${groupEnc}`} size="sm" className="shrink-0" loading={navLoading === `qr:${a.slug}:${groupEnc}`} onClick={() => setNavLoading(`qr:${a.slug}:${groupEnc}`)}>{a.scanned ? 'Voir mon QR' : 'Générer un QR'}</PillLink>
+                    <PillLink
+                      href={`/qr/${a.slug}/${groupEnc}`}
+                      size="sm"
+                      className="shrink-0"
+                      loading={navLoading === `qr:${a.slug}:${groupEnc}`}
+                      onClick={() => setNavLoading(`qr:${a.slug}:${groupEnc}`)}
+                    >
+                      {a.scanned ? 'Voir mon QR' : 'Générer un QR'}
+                    </PillLink>
                   </GlassCard>
                 </li>
               );
@@ -273,7 +281,7 @@ export default function ScanPage() {
         )
       ) : (
         mine.length === 0 ? (
-          <GlassCard className="p-6 text-slate-700
+          <GlassCard className="p-6 text-slate-700">
             <p>Vous n’avez encore créé aucun groupe. Créez-en un depuis la page d’un événement.</p>
             <PillLink href="/" className="mt-3">Voir les événements</PillLink>
           </GlassCard>
@@ -298,7 +306,7 @@ export default function ScanPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm text-slate-600
+                      <div className="text-sm text-slate-600">
                         {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(e.startAt))}
                       </div>
                       <div className="font-bold text-white truncate">{e.title}</div>

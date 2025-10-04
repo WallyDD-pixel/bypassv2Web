@@ -209,7 +209,7 @@ export default function InAppNotifications() {
                       ? "bg-amber-400/20 text-amber-200"
                       : n.variant === "error"
                       ? "bg-rose-400/20 text-rose-200"
-                      : "bg-white/10 text-slate-900/70
+                      : "bg-white/10 text-slate-900/70"
                   ].join(" ")}>
                     •
                   </span>
@@ -234,17 +234,19 @@ export default function InAppNotifications() {
               </button>
             </div>
             {/* barre de progression */}
-            <div className="h-0.5 w-full bg-black/10
-              <div className={[
-                "h-full animate-[bar_6s_linear]",
-                n.variant === "success"
-                  ? "bg-emerald-300"
-                  : n.variant === "warning"
-                  ? "bg-amber-300"
-                  : n.variant === "error"
-                  ? "bg-rose-300"
-                  : "bg-slate-300
-              ].join(" ")} />
+            <div className="h-0.5 w-full bg-black/10">
+              <div
+                className={[
+                  "h-full animate-[bar_6s_linear]",
+                  n.variant === "success"
+                    ? "bg-emerald-300"
+                    : n.variant === "warning"
+                    ? "bg-amber-300"
+                    : n.variant === "error"
+                    ? "bg-rose-300"
+                    : "bg-slate-300"
+                ].join(" ")}
+              />
             </div>
           </div>
         ))}
