@@ -3,13 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-function isAdmin(email?: string | null): boolean {
-  if (!email) return false;
-  const list = (process.env.ADMIN_EMAILS || "").split(/[,;\s]+/).map(s => s.trim().toLowerCase()).filter(Boolean);
-  if (list.length === 0) return false;
-  return list.includes(String(email).toLowerCase());
-}
-
 function prettyEmail(email: string) {
   const local = String(email || '').split('@')[0];
   const cleaned = local.replace(/[._-]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -21,19 +14,6 @@ export default async function AdminDashboard() {
   const ck = await cookies();
   const email = ck.get("auth-email")?.value || "";
   const name = ck.get("auth-name")?.value || "";
-  if (!isAdmin(email)) {
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <div className="rounded-2xl border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6">
-          <h1 className="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Accès refusé</h1>
-          <p className="text-slate-700 dark:text-slate-300">Votre compte n'est pas autorisé. Ajoutez votre email à la variable d'environnement <code>ADMIN_EMAILS</code>.</p>
-          <div className="mt-4 text-sm">
-            <Link href="/" className="underline">Retour</Link>
-          </div>
-        </div>
-      </main>
-    );
-  }
 
   // Récupérer stats en parallèle
   const [
