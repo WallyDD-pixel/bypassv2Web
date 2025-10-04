@@ -111,10 +111,13 @@ export default function InAppNotifications() {
       if (!isAuthenticated) return;
       // Ne pas afficher de toast si déjà sur la page messages (liste ou conversation)
       if (pathname && pathname.startsWith("/messages")) return;
+  // Ignorer le message système de création de groupe
+  const contentRaw = String(p.content || "");
+  if (contentRaw.trim() === "a créé le groupe") return;
       const sender = String(p.senderEmail || "").toLowerCase();
       const me = String(user?.email || "").toLowerCase();
       if (sender && me && sender === me) return; // ne pas notifier pour ses propres messages
-      const preview = (p.content || "").slice(0, 90);
+  const preview = contentRaw.slice(0, 90);
       const who = (p as any).senderName || p.senderEmail || "Quelqu'un";
       show({
         title: `Nouveau message de ${who}`,
@@ -143,16 +146,8 @@ export default function InAppNotifications() {
         });
       }
     },
-    onGroupCreated: (p) => {
-      if (p.name) {
-        show({
-          title: "Nouveau groupe",
-          message: p.name,
-          href: p.eventSlug ? `/events/${p.eventSlug}` : "/explore",
-          variant: "info",
-        });
-      }
-    },
+  // Ne pas afficher de notification in-app lors de la création d'un groupe
+  onGroupCreated: (_p) => { /* no-op as requested */ },
   });
 
   return (
