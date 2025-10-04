@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+  // Ignore generated Prisma client (contains CommonJS requires & generated patterns)
+  "src/generated/**",
     ],
   },
 ];

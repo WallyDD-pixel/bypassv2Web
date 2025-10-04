@@ -1,0 +1,100 @@
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  gender    String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Group {
+  id           Int      @id @default(autoincrement())
+  eventSlug    String
+  name         String
+  ownerEmail   String
+  ownerName    String?
+  avatarUrl    String?
+  femaleCount  Int      @default(0)
+  maleCount    Int      @default(0)
+  members      Int      @default(0)
+  pricePerMale Int?
+  arrivalTime  String?
+  createdAt    DateTime @default(now())
+
+  @@index([eventSlug])
+  @@index([ownerEmail])
+}
+
+model JoinRequest {
+  id             Int       @id @default(autoincrement())
+  eventSlug      String
+  groupName      String
+  memberEmail    String
+  amountCents    Int?
+  currency       String?
+  method         String?
+  status         String    @default("pending")
+  createdAt      DateTime  @default(now())
+  scannedAt      DateTime?
+  payoutReleased Boolean   @default(false)
+
+  @@index([eventSlug])
+  @@index([memberEmail])
+  @@index([groupName])
+  @@index([eventSlug, groupName, memberEmail])
+}
+
+// Conversations par (eventSlug, groupName)
+model Conversation {
+  id         Int       @id @default(autoincrement())
+  eventSlug  String
+  groupName  String
+  createdAt  DateTime  @default(now())
+  members    ConversationMember[]
+  messages   Message[]
+
+  @@unique([eventSlug, groupName])
+}
+
+model ConversationMember {
+  id             Int          @id @default(autoincrement())
+  conversationId Int
+  userEmail      String
+  joinedAt       DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userEmail])
+  @@index([userEmail])
+}
+
+model Message {
+  id             Int      @id @default(autoincrement())
+  conversationId Int
+  senderEmail    String
+  content        String
+  createdAt      DateTime @default(now())
+
+  Conversation   Conversation @relation(fields: [conversationId], references: [id])
+}
+
+// Abonnements Web Push par utilisateur
+model PushSubscription {
+  id         Int      @id @default(autoincrement())
+  userEmail  String
+  endpoint   String   @unique
+  p256dh     String
+  auth       String
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userEmail])
+}

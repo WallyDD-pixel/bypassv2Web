@@ -1,3 +1,8 @@
+/* Suppression de l'adaptation light/dark : tout est forcé en sombre */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
 @import "tailwindcss";
 
 :root {
@@ -12,15 +17,133 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+
+html, body {
+  min-height: 100svh;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Défilement fluide global pour ancres */
+html:focus-within {
+  scroll-behavior: smooth;
 }
+@supports (scroll-behavior: smooth) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Réserver une marge sous les headers collants (MobileHeader/TopNav) */
+.scroll-target {
+  scroll-margin-top: 5.5rem; /* env. TopNav sur md+ */
+}
+@media (max-width: 767px) {
+  .scroll-target { scroll-margin-top: 3.5rem; } /* MobileHeader */
+}
+
+
+/* Utilities */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+body {
+  --violet: 168, 85, 247;
+  --blue: 59, 130, 246;
+  --pink: 244, 114, 182;
+  --vignette: 12, 10, 24;
+  background-color: #0a0a0a;
+  color: #ededed;
+  font-family: var(--font-geist-sans);
+  /* Fond dégradé "sucre" sombre, identique sur tous les appareils */
+  background-image:
+    radial-gradient(900px 520px at -10% -10%, rgba(var(--pink), 0.20) 0%, rgba(var(--pink), 0.00) 60%),
+    radial-gradient(1100px 560px at 50% 110%, rgba(var(--violet), 0.18) 0%, rgba(var(--violet), 0.00) 65%),
+    radial-gradient(1000px 540px at 110% -20%, rgba(var(--blue), 0.18) 0%, rgba(var(--blue), 0.00) 60%),
+    linear-gradient(135deg, rgba(var(--violet), 0.18) 0%, rgba(var(--blue), 0.18) 45%, rgba(var(--pink), 0.18) 100%),
+    linear-gradient(180deg, rgba(var(--vignette), 0.00) 0%, rgba(var(--vignette), 0.10) 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-color 200ms ease;
+}
+
+
+
+
+/* Pretty range slider styling */
+.range {
+  --min: 0;
+  --max: 100;
+  --value: 0;
+  --percent: calc((var(--value) - var(--min)) / (var(--max) - var(--min)));
+  /* Couleur plus visible (vert) */
+  --range-fill: #22c55e; /* emerald-500 */
+  --range-thumb: #22c55e;
+  --range-track: rgba(255, 255, 255, 0.6);
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 9999px;
+  background-color: var(--range-track);
+  background-image: linear-gradient(var(--range-fill), var(--range-fill));
+  background-repeat: no-repeat;
+  background-size: calc(var(--percent) * 100%) 100%;
+  transition: background-size .15s ease;
+  border: 1.5px solid rgba(255,255,255,0.9); /* contour blanc pour bien distinguer */
+}
+
+.dark .range {
+  --range-fill: #34d399; /* emerald-400 en dark pour contraste */
+  --range-thumb: #34d399;
+  --range-track: rgba(255, 255, 255, 0.18);
+}
+
+.range:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.12);
+}
+.dark .range:focus {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
+}
+
+/* WebKit */
+.range::-webkit-slider-thumb {
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 9999px;
+  background: var(--range-thumb);
+  border: 2px solid rgba(255, 255, 255, 0.95); /* contour blanc plus marqué */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  margin-top: -5px; /* (thumb - track)/2 */
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.range:active::-webkit-slider-thumb {
+  transform: scale(0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Firefox */
+.range::-moz-range-track {
+  height: 12px;
+  border-radius: 9999px;
+  background: var(--range-track);
+  border: 1.5px solid rgba(255,255,255,0.9);
+}
+.range::-moz-range-progress {
+  height: 12px;
+  border-radius: 9999px;
+  background: var(--range-fill);
+}
+.range::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 9999px;
+  background: var(--range-thumb);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.range:active::-moz-range-thumb {
+  transform: scale(0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.range::-moz-focus-outer { border: 0; }
