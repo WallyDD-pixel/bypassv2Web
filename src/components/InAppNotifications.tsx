@@ -152,7 +152,7 @@ export default function InAppNotifications() {
           return; // éviter d'empiler avec d'autres toasts pour le même event
         }
       } catch {}
-      // Si l'utilisateur courant est l'organisatrice qui vient de scanner
+  // Si l'utilisateur courant est l'organisatrice qui vient de scanner
       try {
         const me = String(user?.email || "").toLowerCase();
         const owner = String((p as any).ownerEmail || "").toLowerCase();
@@ -162,15 +162,18 @@ export default function InAppNotifications() {
           const formatted = cents != null ? new Intl.NumberFormat("fr-FR", { style: "currency", currency }).format(cents / 100) : undefined;
           const who = (p as any).memberName || (p as any).memberEmail || "Le membre";
           show({
-            title: "Scan réussi",
-            message: formatted ? `${who} — ${formatted} crédité sur votre compte` : `${who} — crédité sur votre compte`,
+    title: "QR scanné",
+    message: formatted
+      ? `Vous avez bien scanné le QR de ${who}. ${formatted} est crédité à votre compte.`
+      : `Vous avez bien scanné le QR de ${who}. Le montant est crédité à votre compte.`,
             href: "/profile/transactions",
             variant: "success",
           });
           return;
         }
       } catch {}
-      if (p.status === "accepted") {
+  // Éviter d'empiler un toast "Demande acceptée" si un scan vient d'avoir lieu
+  if (p.status === "accepted" && !p.scannedAt) {
         show({
           title: "Demande acceptée",
           message: p.groupName ? `Vous êtes accepté dans ${p.groupName}` : "Votre demande a été acceptée",
